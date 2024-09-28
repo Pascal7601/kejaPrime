@@ -7,7 +7,7 @@ The platform utilizes geolocation services and filtering options to provide user
 # Key Features
 Location-Based Search: Users can search for homes near their current location or in specific neighborhoods.
 
-Map Integration: Available rental properties are shown on an interactive map for easy visualization.
+Map Integration: Available rental properties are shown on an interactive map for easy access visualization.
 Filtering and Sorting: Search results can be filtered by price, number of bedrooms, and other important factors.
 
 User Accounts: Renters and property owners can create accounts to save their favorite listings or manage property advertisements.
