@@ -11,12 +11,13 @@ class Property(BaseModel):
   name = Column(String(256), nullable=False)
   location = Column(String(256), nullable=False)
   description = Column(Text, nullable=True)
+  bedrooms = Column(String(256))
   price = Column(Float, nullable=False)
   image_url = Column(String(512), nullable=False)
 
   # relatioships
   landlord = relationship("User", back_populates="properties")
-
+  images = relationship("PropertyImage", back_populates="property", cascade="all, delete-orphan")
 
 class PropertyImage(BaseModel):
     __tablename__ = 'property_images'
