@@ -1,0 +1,19 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: #ffff;
+}
+nav{
+	display: flex;
+	justify-content: space-between;
+	background: #060b20;
+}
+
+h1{
+	color: blue;
+	font-weight: light;
+}
+h1 span{
+	color: red;
+}
