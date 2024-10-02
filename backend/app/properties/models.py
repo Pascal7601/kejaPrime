@@ -1,5 +1,5 @@
 from core.models import BaseModel
-from sqlalchemy import Column, String, ForeignKey, Text, Float
+from sqlalchemy import Column, String, ForeignKey, Text, Float, Integer
 from sqlalchemy.orm import relationship
 
 
@@ -11,9 +11,8 @@ class Property(BaseModel):
   name = Column(String(256), nullable=False)
   location = Column(String(256), nullable=False)
   description = Column(Text, nullable=True)
-  bedrooms = Column(String(256))
+  bedrooms = Column(Integer)
   price = Column(Float, nullable=False)
-  image_url = Column(String(512), nullable=False)
 
   # relatioships
   landlord = relationship("User", back_populates="properties")
