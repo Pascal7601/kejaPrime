@@ -1,11 +1,11 @@
-FROM python:3.12
+# FROM python:3.12
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY . .
+# COPY . .
 
-RUN pip install -r requirements.txt
+# RUN pip install -r requirements.txt
 
-EXPOSE 8000
+# EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "port", "0.0.0.0", "host", "localhost"]
+# CMD ["uvicorn", "main:app", "port", "0.0.0.0", "host", "localhost"]

@@ -19,7 +19,7 @@ def all_users(db: Session = Depends(get_db)):
   users = db.query(User).all()
   return users
 
-@user_route.post('/user')
+@user_route.post('/register')
 def add_user(user_data: schemas.UserCreateModel, db: Session = Depends(get_db)):
   """
   add users into the database
