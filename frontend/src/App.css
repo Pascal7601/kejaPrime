@@ -1,0 +1,19 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+}
+nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #fff;
+	z-index: 9999; /* High value to bring it on top */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional */
+  }
+  
