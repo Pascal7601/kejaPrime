@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -11,8 +12,8 @@ function App() {
     <Router>
       <Navbar />
       <HeroSection />
+      <Footer />
       <Routes>
-        <Route path="/" element={<div>Home</div>} />
         <Route path="/listings" />
         <Route path="/profile" />
         <Route path="/sign-in" />
