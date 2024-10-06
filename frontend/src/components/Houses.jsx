@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import '../styles/Houses.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import Navbar from './Navbar';
 import place1 from '../assets/place1.jpeg';
 import place2 from '../assets/place2.jpeg';
 import place3 from '../assets/place3.jpeg';
 
-const housesData = [
+export const housesData = [
 	{
 		id: 1,
 		title: 'Olympus Suites',
@@ -32,38 +31,6 @@ const housesData = [
 		location: 'Westlands',
 		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
 		image: place3
-	  },
-	  {
-		id: 3,
-		title: 'Imenti House',
-		price: '75,000',
-		location: 'Westlands',
-		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
-		image: place3
-	  },
-	  {
-		id: 3,
-		title: 'Imenti House',
-		price: '75,000',
-		location: 'Westlands',
-		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
-		image: place3
-	  },
-	  {
-		id: 3,
-		title: 'Imenti House',
-		price: '75,000',
-		location: 'Westlands',
-		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
-		image: place3
-	  },
-	  {
-		id: 3,
-		title: 'Imenti House',
-		price: '75,000',
-		location: 'Westlands',
-		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
-		image: place3
 	  }
 ]
 
@@ -75,7 +42,7 @@ function Houses() {
 			<div className="house-row">
 				{housesData.map((house) => (
 					<Link
-					to={`/houses/${house.id}`} // This will navigate to the house details page
+					to={`/houses/${house.id}`}
 					key={house.id}
 					className="house-card"
 					>

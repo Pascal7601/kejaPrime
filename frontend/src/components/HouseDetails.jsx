@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import housesData from './Houses'; 
+import { housesData } from './Houses';
 
 function HouseDetails() {
   const { id } = useParams();
+  console.log('housesData:', housesData);
   const house = housesData.find((house) => house.id === parseInt(id));
 
   if (!house) {
