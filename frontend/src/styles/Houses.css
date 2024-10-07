@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body, html {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	width: 100%;
+}
+.houses-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1.5rem;
+	margin-top: 50px;
+	width: 98vw;
+}
+  
+.house-row{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 1.5rem;
+	width: 100%;
+}
+  
+.house-card {
+	background-color: white;
+	padding: 10px;
+	border-radius: 8px;
+	margin: 0 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s ease-in-out;
+}
+  
+.house-card:hover {
+	transform: translateY(-5px);
+}
+span{
+	color: #e0354b;
+}
+.house-image {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}
+  
+.house-info {
+	padding: 1rem;
+}
+  
+h6 {
+	margin-top: 12px;
+	font-weight: 600;
+	color: #003b95;
+	margin-bottom: 0.5rem;
+}
+.price{
+	color: #003b95;
+}
+  
+strong {
+	font-weight: bold;
+}
+.location-icon {
+	margin-right: 5px;
+	margin-left: 5px;
+  	vertical-align: middle;
+}
+.location {
+	color: #003b95;
+}
+p{
+	font-size: 14px;
+}
+
+.filter-bar {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+  
+.filter-bar input,
+.filter-bar button {
+	padding: 5px 10px;
+	font-size: 16px;
+}
+
+@media (max-width: 768px) {
+	.house-row {
+	  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	}
+}
+@media (max-width: 480px) {
+	.house-row {
+	  grid-template-columns: 1fr;
+	}
+}

@@ -36,7 +36,7 @@ nav ul {
 	color: #ffff; 
 }
 .custom-navbar {
-	background-color: #060b20; 
+	background-color: #003b95; 
   }
   
   .custom-navbar .navbar-nav .nav-link {
@@ -48,7 +48,7 @@ nav ul {
   }
   
   .custom-navbar .navbar-toggler-icon {
-	filter: brightness(1000%); 
+	filter: brightness(1000%);
   }
   
   .custom-navbar .navbar-nav .nav-link:hover {
