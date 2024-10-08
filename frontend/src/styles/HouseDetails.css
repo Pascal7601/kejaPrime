@@ -1,53 +1,56 @@
-.house-details {
-	margin: 0 auto;
-	text-align: center;
-	display: flex;
-	width: 100%;
-
-  }
-  
-  .house-images {
+.image-container {
 	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 300px;
+  	width: 100%;
+	max-width: 600px;
+  	height: 500px;
+	margin: 20px;
 	overflow: hidden;
-	margin-bottom: 20px;
-  }
-  
-
-  .house-images::before {
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+}
+.house-image {
 	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 0.8);
-	z-index: 1;
-  }
-  
-  .carousel-control {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: rgba(0, 0, 0, 0.5);
-	color: white;
+  	height: auto;
+  	border-radius: 10px;
+  	display: block;
+	object-fit: cover;
+
+}
+.carousel-control {
 	font-size: 24px;
-	border: none;
-	cursor: pointer;
 	padding: 10px;
-	border-radius: 100%;
-	z-index: 10;
-  }
+	width: 40px;
+	margin: 20px;
+	height: 50px;
+	background-color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
   
-  .carousel-control.prev {
-	left: 20px;
-  }
+.carousel-control:hover {
+	background-color: #dd4d4d;
+}
+.btn {
+	background-color: #003b95;
+}
   
-  .carousel-control.next {
-	right: 20px;
-  }
+.house-image {
+	position: relative;
+	width: 100%;
+ 	height: 100%;
+	object-fit: cover;
+  	border-radius: 10px;
+}
+  
+.button-switch{
+	position: absolute;
+	display: flex;
+	top: 50%;
+	gap: 10px;
+}
+  
+.button-switch button {
+	display: flex;
+	color: #fff;
+	justify-content: center;
+	border: 1px solid red;
+
+}
