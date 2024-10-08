@@ -12,6 +12,7 @@ class User(BaseModel):
   email = Column(String(256), nullable=False, unique=True)
   password_hash = Column(String(256), nullable=False)
   is_landlord = Column(Boolean, nullable=False, default=False)
+  location = Column(String(256))
 
   # relatioships
 

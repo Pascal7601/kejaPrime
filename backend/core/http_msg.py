@@ -13,9 +13,9 @@ def not_authorized():
     detail='user not authorized'
     )
 
-def forbidden():
+def forbidden(data: str = "user is forbidden"):
   return HTTPException(
-    status_code=status.HTTP_403_FORBIDDEN, detail='user is forbidden'
+    status_code=status.HTTP_403_FORBIDDEN, detail=data
     )
 
 def bad_request(detail: str = "Bad request"):
