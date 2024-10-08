@@ -41,10 +41,10 @@ function HouseDetails() {
             </div>
           </div>
 
-        <div className="col-md-6 text-center d-flex flex-column justify-content-center">
+        <div className="col-md-6  d-flex flex-column ">
           <h2>{house.title}</h2>
-          <p>Price: {house.price}</p>
-          <p>Location: {house.location}</p>
+          <p style={{ fontSize: '20px', fontWeight: "400"}}>Price: {house.price}</p>
+          <p >Location: {house.location}</p>
           <p>{house.description}</p>
         </div>
       </div>
