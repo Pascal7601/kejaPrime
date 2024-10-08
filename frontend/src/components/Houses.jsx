@@ -31,7 +31,152 @@ export const housesData = [
 		location: 'Westlands',
 		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
 		images: [place3]
+	  },
+	  {
+		id: 4,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 5,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 6,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 7,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 8,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 9,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 10,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 11,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 12,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 13,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 14,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 14,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 15,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 16,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 17,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 18,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 19,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
+	  },
+	  {
+		id: 20,
+		title: 'Imenti House',
+		price: '75,000',
+		location: 'Westlands',
+		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
+		images: [place3]
 	  }
+	  
 ]
 
 function Houses() {
@@ -53,19 +198,18 @@ function Houses() {
 							className="house-image"
 						/>
               		</div>
-					<h4>{house.title}</h4>
-					<p>Price: {house.price}</p>
-					<p>
-						Location
+					<h5>{house.title}</h5>
+					<p className='price'>Price: {house.price}</p>
+					<p className='icon-locator'>
+						Location:
 						<span className="location-icon">
 						<FontAwesomeIcon icon={faMapMarkerAlt} />
 						</span>{' '}
 						{house.location}
 					</p>
-					<p>{house.description}</p>
 					</Link>
 				))}
-        </div>
+        	</div>
 			</div>
 		</>
 	);

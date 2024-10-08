@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { housesData } from './Houses';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/HouseDetails.css';
 
 function HouseDetails() {
@@ -20,21 +21,32 @@ function HouseDetails() {
   };
   
   return (
-    <div className="house-details">
-       <div className="house-images">
-        <button className="carousel-control prev" onClick={prevImage}>&#10094;</button>
-        <img 
-          src={house.images[currentIndex]} 
-          alt={`${house.title} - ${currentIndex + 1}`} 
-          className="house-image" 
-        />
-        <button className="carousel-control next" onClick={nextImage}>&#10095;</button>
-      </div>
-      <div>
-        <h2>{house.title}</h2>
-        <p>Price: {house.price}</p>
-        <p>Location: {house.location}</p>
-        <p>{house.description}</p>
+    <div className="container house-detail mt-5">
+      <div className="row">
+        <div className="col-md-6 d-flex flex-column align-items-center">
+          <div className="image-container">
+              <img
+                src={house.images[currentIndex]}
+                alt={`${house.title} - ${currentIndex + 1}`}
+                className="img-fluid mb-3 house-image"
+              />
+              <div className="button-switch">
+                <button className="btn btn-light carousel-control prev" onClick={prevImage}>
+                  &#10094;
+                </button>
+                <button className="btn btn-light carousel-control next" onClick={nextImage}>
+                  &#10095;
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <div className="col-md-6 text-center d-flex flex-column justify-content-center">
+          <h2>{house.title}</h2>
+          <p>Price: {house.price}</p>
+          <p>Location: {house.location}</p>
+          <p>{house.description}</p>
+        </div>
       </div>
     </div>
   );
