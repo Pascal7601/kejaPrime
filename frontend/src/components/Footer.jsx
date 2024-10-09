@@ -5,7 +5,7 @@ import '../styles/Footer.css';
 const Footer = () => {
 	const currentYear = new Date().getFullYear();
   return (
-	<footer className='footer bg-dark text-white py-4'>
+	<footer className='footer py-4'>
 		<div className='container'>
 			<div className='row'>
 				<div className='col-md-6'>
