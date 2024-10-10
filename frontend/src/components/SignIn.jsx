@@ -22,7 +22,7 @@ const SignIn = () => {
 	<div className='sign-in-container container mt-5 addUser'>
 		<h2> Sign In</h2>
 		<form action='' onSubmit={handleSubmit} className='addUserform'>
-			<div className='form-group mb-3'>
+			<div className='form-group mb-3 mt-1'>
 				<label htmlFor="email"> Email:</label>
 				<input
 					type="email"
