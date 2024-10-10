@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 
 
 load_dotenv()
@@ -13,3 +14,9 @@ MYSQL_DB = os.getenv('MYSQL_DB', 'kejaPrime_db')
 EXPIRY_TIME = os.getenv('EXPIRY_TIME')
 SECRET_KEY = os.getenv('SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')
+
+# local storage for images config
+UPLOAD_DIRECTORY = "uploads/"
+
+# Create the directory if it doesn't exist
+Path(UPLOAD_DIRECTORY).mkdir(parents=True, exist_ok=True)
