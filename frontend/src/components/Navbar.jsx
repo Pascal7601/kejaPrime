@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Navbar.css';
 
 function Navbar() {
-	const isloggedIn = false;
+	const isloggedIn = true;
 
 	return(
 		<nav className="navbar navbar-expand-lg custom-navbar fixed-top">
