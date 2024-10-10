@@ -20,7 +20,7 @@ const SignUp = () => {
 		setErrors(Validation(values));
 	}
   return (
-	<div className='sign-up-container container mt-5 addUser'>
+	<div className='sign-up-container container mt-5 mb-3 addUser'>
 		<h2> Sign Up</h2>
 		<form action='' onSubmit={handleSubmit} className='addUserform'>
 			<div className=' form-group mb-3 inputGroup'>
