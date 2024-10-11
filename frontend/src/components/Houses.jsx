@@ -121,14 +121,6 @@ export const housesData = [
 		images: [place3]
 	  },
 	  {
-		id: 14,
-		title: 'Imenti House',
-		price: '75,000',
-		location: 'Westlands',
-		description: 'A charming cottage in a serene countryside setting, perfect for weekend getaways.',
-		images: [place3]
-	  },
-	  {
 		id: 15,
 		title: 'Imenti House',
 		price: '75,000',

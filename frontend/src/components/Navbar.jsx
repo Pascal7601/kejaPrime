@@ -1,11 +1,13 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../utils/AuthContext';
+import { AuthProvider } from '../utils/AuthContext';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Navbar.css';
 
 function Navbar() {
-	const isloggedIn = true;
-
+	const { isLoggedIn, userType, logout } = useContext(AuthContext);
 	return(
 		<nav className="navbar navbar-expand-lg custom-navbar fixed-top">
 			<div className='container-fluid'>
@@ -30,11 +32,16 @@ function Navbar() {
 						<li className='nav-item'>
 							<Link className='nav-link' to='/listings'>Listings</Link>
 						</li>
-						{isloggedIn ? (
+						{isLoggedIn ? (
 							<>
 								<li className='nav-item'>
 									<Link className='nav-item' to="/profile">Profile</Link>
 								</li>
+								{userType === 'landlord' && (
+									<li className='nav-item'>
+										<Link className='nav-link' to="/post-house">Post a House</Link>
+									</li>
+								)}
 								<li className='nav-item'>
 									<button className='btn btn-link nav-link'>Logout</button>
 								</li>
