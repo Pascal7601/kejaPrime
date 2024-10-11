@@ -11,8 +11,10 @@ from . import schemas
 from minio import Minio
 from minio.error import S3Error
 import uuid
-from app.properties.views import minio_client, bucket_name
+# from app.properties.views import minio_client, bucket_name
 from app.properties.models import PropertyImage
+from core import settings
+import os
 
 
 feed_route = APIRouter(prefix='/api/v1/feeds', tags=['feeds'])
@@ -50,37 +52,26 @@ async def upload_feed(
   db.refresh(new_feed)
   
   try:
-    # Upload file to MinIO and store the image metadata
-      image_id = str(uuid.uuid4())
-      image_path = f"{new_feed.id}/{image_id}.{file.filename.split('.')[-1]}"
+        # Save the uploaded file to local storage
+        file_location = os.path.join(settings.UPLOAD_DIRECTORY, file.filename)
+        
+        # Write the file to disk
+        with open(file_location, "wb") as f:
+            f.write(await file.read())
 
-      file.file.seek(0, 2)  # Seek to the end to get the size
-      file_size = file.file.tell()  # Get the size
-      file.file.seek(0) 
+        # Save image metadata to the database
+        new_image = FeedImage(
+            feed_id=new_feed.id,
+            image_url=file_location  # Store the file path in the DB
+        )
+        db.add(new_image)
+        db.commit()
 
-      # Upload the image file to MinIO
-      minio_client.put_object(
-          bucket_name,
-          image_path,
-          file.file,
-          length=file_size,
-          content_type=file.content_type
-    )
+  except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Failed to upload image")
 
-            # Store the image URL in the database
-      image_url = f"http://localhost:9000/{bucket_name}/{image_path}"
-      new_image = FeedImage(
-                feed_id=new_feed.id,
-                image_url=image_url
-            )
-      db.add(new_image)
-
-      db.commit()
-
-  except S3Error as err:
-      raise HTTPException(status_code=500, detail=f"Error uploading image: {err}")
-
-  return {"message": "Feed created successfully", "feed_id": new_feed.id}
+  return {"message": "Image successfully uploaded", "url": file_location}
 
 
 @feed_route.get('/')
@@ -145,18 +136,21 @@ async def delete_feed(
      raise http_msg.forbidden("cannot delete a feed that you did not post")
   
   image = db.query(FeedImage).filter_by(feed_id=feed_id).first()
-  image_path = f"{feed_id}/{image.id}.jpg"
   
+  image_path = image.image_url
+    # Attempt to delete the image from local storage
   try:
-     minio_client.remove_object(bucket_name, image_path)
-
-  except S3Error as err:
-      raise HTTPException(status_code=500, detail=f"Error deleting image from MinIO: {err}")
-     
-  
+        if os.path.exists(image_path):
+            os.remove(image_path)
+        else:
+            raise HTTPException(status_code=404, detail="Image file not found on disk")
+  except Exception as err:
+        raise HTTPException(status_code=500, detail=f"Error deleting image from local storage: {err}")
+    
+    # Delete the image record from the database
   db.delete(feed)
   db.commit()
-
-  return {"message": "feed deleted succesfully"}
+    
+  return {"message": "Feed deleted successfully"}
 
 
