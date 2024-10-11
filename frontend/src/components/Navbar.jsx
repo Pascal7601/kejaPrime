@@ -34,16 +34,16 @@ function Navbar() {
 						</li>
 						{isLoggedIn ? (
 							<>
-								<li className='nav-item'>
-									<Link className='nav-item' to="/profile">Profile</Link>
-								</li>
 								{userType === 'landlord' && (
 									<li className='nav-item'>
 										<Link className='nav-link' to="/post-house">Post a House</Link>
 									</li>
 								)}
 								<li className='nav-item'>
-									<button className='btn btn-link nav-link'>Logout</button>
+									<Link className='nav-link' to="/profile">Profile</Link>
+								</li>
+								<li className='nav-item'>
+									<button className='nav-link'>Logout</button>
 								</li>
 							</>
 						) : (

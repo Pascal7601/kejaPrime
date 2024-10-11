@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Listings from './pages/Listings';
 import ProfilePage from './pages/ProfilePage';
 import SignUp from './components/SignUp';
+import PostHouse from './pages/PostHouse';
 import SignIn from './components/SignIn';
 
 import './App.css';
@@ -19,6 +20,7 @@ function App() {
               <Route path="/listings" element={<Listings />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/Sign-up" element={<SignUp />} />
+              <Route pat="/post-house" element={<PostHouse />} />
               <Route path="/Sign-in" element={<SignIn />} />
             </Routes>
       </Router>
