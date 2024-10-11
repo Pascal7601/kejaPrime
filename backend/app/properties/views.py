@@ -1,4 +1,4 @@
-from fastapi import Depends, APIRouter, UploadFile, HTTPException, File, Form
+from fastapi import Depends, APIRouter, UploadFile, HTTPException
 from app.auth.views import security
 from fastapi.security import HTTPBasicCredentials
 from core.database import get_db
@@ -11,22 +11,23 @@ from . import schemas
 from minio import Minio
 from minio.error import S3Error
 import uuid
-
+from core import settings
+import os
 
 property_route = APIRouter(prefix='/api/v1/properties', tags=['properties'])
 
-# configure minio
-minio_client = Minio(
-    "localhost:9000", 
-    access_key="kejaprime",
-    secret_key="kejaprime123",
-    secure=False
-)
+# # configure minio
+# minio_client = Minio(
+#     "localhost:9000", 
+#     access_key="kejaprime",
+#     secret_key="kejaprime123",
+#     secure=False
+# )
 
-# Ensure bucket exists
-bucket_name = "property-images"
-if not minio_client.bucket_exists(bucket_name):
-    minio_client.make_bucket(bucket_name)
+# # Ensure bucket exists
+# bucket_name = "property-images"
+# if not minio_client.bucket_exists(bucket_name):
+#     minio_client.make_bucket(bucket_name)
 
 
 @property_route.post('/property')
@@ -77,41 +78,32 @@ async def upload_image(
     """
     upload images to the properties with specific ids
     """
-    # Generate a unique identifier for the image
     new_property = db.query(Property).filter_by(id=property_id).first()
     if not new_property:
         raise http_msg.not_found("Property")
     
-    image_id = str(uuid.uuid4())
-    property_image_path = f"{new_property.id}/{image_id}.jpg"  # Image path in MinIO
 
     try:
-        # Upload the image file to MinIO
-        file.file.seek(0, 2)  # Seek to the end to get the size
-        file_size = file.file.tell()  # Get the size
-        file.file.seek(0)  
+        # Save the uploaded file to local storage
+        file_location = os.path.join(settings.UPLOAD_DIRECTORY, file.filename)
+        
+        # Write the file to disk
+        with open(file_location, "wb") as f:
+            f.write(await file.read())
 
-        minio_client.put_object(
-            bucket_name,
-            property_image_path,
-            file.file,
-            length=file_size, 
-            content_type=file.content_type
-        )
-
-        # Store the image URL in the database
-        image_url = f"http://localhost:9000/{bucket_name}/{property_image_path}"
+        # Save image metadata to the database
         new_image = PropertyImage(
             property_id=new_property.id,
-            image_url=image_url
+            image_url=file_location  # Store the file path in the DB
         )
         db.add(new_image)
         db.commit()
 
-    except S3Error as err:
-        raise HTTPException(status_code=500, detail=f"Error uploading image: {err}")
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Failed to upload image")
 
-    return {"message": "succesfully added image", "url": image_url}
+    return {"message": "Image successfully uploaded", "url": file_location}
 
 
 @property_route.get('/', response_model=list[schemas.PropertyResponseModel])
@@ -171,13 +163,18 @@ def delete_image(
     if not image:
         raise http_msg.not_found("Image")
     
-    image_path = f"{property_id}/{image_id}.jpg"
+    image_path = image.image_url
+    # Attempt to delete the image from local storage
     try:
-      # delete the image from minio
-      minio_client.remove_object(bucket_name, image_path)
-    except S3Error as err:
-        raise HTTPException(status_code=500, detail=f"Error deleting image from MinIO: {err}")
+        if os.path.exists(image_path):
+            os.remove(image_path)
+        else:
+            raise HTTPException(status_code=404, detail="Image file not found on disk")
+    except Exception as err:
+        raise HTTPException(status_code=500, detail=f"Error deleting image from local storage: {err}")
     
+    # Delete the image record from the database
     db.delete(image)
     db.commit()
+    
     return {"message": "Image deleted successfully"}
