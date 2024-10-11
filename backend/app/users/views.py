@@ -6,7 +6,7 @@ from . import schemas
 from sqlalchemy.orm import Session
 from core import http_msg
 from app.auth.auth import generate_hash_pwd
-from core.settings import send_simple_message, EmailSchema
+# from core.settings import EmailSchema
 from fastapi.responses import JSONResponse
 
 user_route = APIRouter(prefix='/api/v1/users', tags=['users'])
@@ -50,10 +50,10 @@ async def add_user(user_data: schemas.UserCreateModel, db: Session = Depends(get
   db.add(user)
   db.commit()
 
-  try:
-      await send_simple_message(user.email)
-  except HTTPException as e:
-      return JSONResponse(status_code=500, content={"message": "User created but failed to send confirmation email."})
+  # try:
+  #     await send_simple_message(user.email)
+  # except HTTPException as e:
+  #     return JSONResponse(status_code=500, content={"message": "User created but failed to send confirmation email."})
     
   return http_msg.created("User successfully created, check email for confirmation")
 
