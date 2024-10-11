@@ -8,7 +8,9 @@ const SignUp = () => {
 	const [values, setValues] = useState({
 		name: '',
 		email: '',
-		password: ''
+		password: '',
+		location: '',
+		role:''   // new field for user type (property owner or renter)
 	});
 	const [errors, setErrors] = useState({});
 
@@ -46,6 +48,45 @@ const SignUp = () => {
 					onChange={handleInput}
 				/>
 				{errors.email && <span className='text-danger'> {errors.email} </span>}
+			</div>
+			<div className='form-group mb-3'>
+				<label htmlFor="location"> Location:</label>
+				<input
+					type="text"
+					name='location'
+					className='form-control'
+					autoComplete='off'
+					placeholder='Enter your location'
+					onChange={handleInput}
+				/>
+				{errors.location && <span className='text-danger'> {errors.location} </span>}
+			</div>
+			{/* role: property owner of renter */}
+			<div className='form-group mb-3'>
+				<label htmlFor="usertype"> Role: </label>
+				<div className='form-check'>
+					<input
+						type="radio"
+						className='form-check-input'
+						name='role'
+						value='propertyOwner'
+						onChange={handleInput}
+						id='propertyOwner'
+					/>
+					<label className="form-check-label" htmlFor="propertyOwner">Property Owner</label>
+				</div>
+				<div className='form-check'>
+					<input
+						type="radio"
+						className='form-check-input'
+						name='role'
+						value='renter'
+						onChange={handleInput}
+						id='renter'
+					/>
+					<label className="form-check-label" htmlFor="renter">Renter </label>
+				</div>
+				{errors.role && <span className='text-danger'> {errors.role} </span>}
 			</div>
 			<div className='form-group mb-3'>
 				<label htmlFor="password"> Password:</label>

@@ -10,6 +10,11 @@ function Validation (values) {
 	else {
 		error.name=""
 	}
+	if (values.location === "") {
+		error.locaton = "Please enter location";
+	  } else {
+		error.location = "";
+	  }
 
 	if (values.email === "") {
 		error.email = "Name should not be empty"
@@ -28,6 +33,11 @@ function Validation (values) {
 	} else {
 		error.password = ""
 	}
+	if (values.role === "") {
+		error.role = "Please select a user type (Property Owner or Renter)";
+	  } else {
+		error.role = "";
+	  }
 	return error;
 }
 export default Validation;
