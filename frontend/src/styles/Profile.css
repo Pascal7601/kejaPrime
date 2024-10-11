@@ -1,0 +1,40 @@
+.profile-page {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 50px;
+    padding-top: 60px;
+    font-family: Arial, sans-serif;
+}
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.footing {
+    margin-top: auto;
+}
+.profile-title{
+    color: #4ea685;
+
+}
+
+.house-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.house-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.house-item h3 {
+    margin-bottom: 10px;
+}
+
+.house-item p {
+    margin: 5px 0;
+}

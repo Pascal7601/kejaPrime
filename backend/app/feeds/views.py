@@ -8,8 +8,8 @@ from app.users.models import User
 from core import http_msg
 from .models import Feed, FeedImage
 from . import schemas
-from minio import Minio
-from minio.error import S3Error
+#from minio import Minio
+#from minio.error import S3Error
 import uuid
 # from app.properties.views import minio_client, bucket_name
 from app.properties.models import PropertyImage
