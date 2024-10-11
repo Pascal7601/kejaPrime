@@ -9,9 +9,11 @@ from pathlib import Path
 load_dotenv()
 
 # DATABASE CONFIG
-MYSQL_USER = os.getenv('MYSQL_USER', 'pascal')
-MYSQL_PWD = os.getenv('MYSQL_PWD', 'pascal')
-MYSQL_DB = os.getenv('MYSQL_DB', 'kejaPrime_db')
+#YSQL_USER = os.getenv('MYSQL_USER', 'pascal')
+MYSQL_USER = os.getenv('MYSQL_USER', 'lupamo')
+#MYSQL_PWD = os.getenv('MYSQL_PWD', 'pascal')
+MYSQL_PWD = os.getenv('MYSQL_PWD', '52535504Arn_')
+MYSQL_DB = os.getenv('MYSQL_DB', 'kejaprime_db')
 
 # jwt authentication
 EXPIRY_TIME = os.getenv('EXPIRY_TIME')
