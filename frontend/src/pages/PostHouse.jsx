@@ -7,6 +7,7 @@ function PostHouse() {
     const [formData, setFormData] = useState({
         image: null,
         title: '',
+        bedrooms: '',
         price: '',
         location: '',
         description: ''
@@ -32,6 +33,7 @@ function PostHouse() {
         const formPayload = new FormData();
         formPayload.append('image', formData.image);
         formPayload.append('title', formData.title);
+        formPayload.append('bedrooms', formData.bedrooms);
         formPayload.append('price', formData.price);
         formPayload.append('location', formData.location);
         formPayload.append('description', formData.description);
@@ -46,6 +48,7 @@ function PostHouse() {
             setFormData({
                 image: null,
                 title: '',
+                bedrooms: '',
                 price: '',
                 location: '',
                 description: ''
@@ -85,7 +88,18 @@ function PostHouse() {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="price">Price (USD):</label>
+                    <label htmlFor="bedrooms">Bedrooms:</label>
+                    <input
+                        type="text"
+                        id="bedrooms"
+                        name="bedrooms"
+                        value={formData.bedrooms}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="price">Price (Ksh):</label>
                     <input
                         type="number"
                         id="price"
