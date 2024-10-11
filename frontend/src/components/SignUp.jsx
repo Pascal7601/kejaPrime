@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import '../styles/SignUp.css'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import axios from 'axios'; // Import axios
 import Validation from '../LoginValidation.jsx';
 
 
@@ -10,16 +11,33 @@ const SignUp = () => {
 		email: '',
 		password: '',
 		location: '',
-		role:''   // new field for user type (property owner or renter)
+		role:'renter'   // new field for user type (property owner or renter)
 	});
 	const [errors, setErrors] = useState({});
+	const navigate =useNavigate(); //hook to navigate to another route
 
+	//handle input change
 	const handleInput = (event) => {
 		setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
-	}
-	const handleSubmit = (event) => {
+	};
+	//submit form; handle it as async
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setErrors(Validation(values));
+		const validationErrors = Validation(values);
+    	setErrors(validationErrors);
+
+		// only post if there are no validation errors
+		if (Object.keys(validationErrors).length === 0) {
+			try {
+				const response = await axios.post('/api/signup', values); // Post to backend
+				console.log(reponse.data);
+				alert('User registered successfully!');
+				navigate('/sign-in'); // Redirect to sign-in page
+			} catch (error) {
+				console.error('There was an error registering the user:', error);
+				alert('Error registering user. Please try again.');
+			}
+		}
 	}
   return (
 	<div className='sign-up-container container mt-5 mb-3 addUser'>
