@@ -124,6 +124,20 @@ async def all_images(property_id: str, db: Session = Depends(get_db)):
         raise http_msg.not_found("Images")
     return images
 
+@property_route.get('/{user_id}', response_model=list[schemas.PropertyResponseModel])
+async def get_property(
+    user_id: str,
+    db: Session = Depends(get_db)
+):
+    """
+    gets properties of a landlord
+    """
+    property = db.query(Property).filter_by(landlord_id=user_id).all()
+    if not property:
+        raise http_msg.not_found("property")
+    return property
+
+
 
 @property_route.put('/{property_id}', response_model=schemas.PropertyResponseModel)
 async def update_property(

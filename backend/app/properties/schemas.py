@@ -10,6 +10,7 @@ class PropertyPostModel(BaseModel):
 
 class PropertyResponseModel(BaseModel):
 
+  landlord_id: str
   id: str
   name: str
   location: str
