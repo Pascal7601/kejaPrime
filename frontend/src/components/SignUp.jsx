@@ -32,11 +32,11 @@ const SignUp = () => {
 				console.log("Submitting form");
 				const response = await axios.post('http://localhost:8000/api/v1/users/register', values); // Post to backend
 				console.log(response.data);
-				alert('User registered successfully!');
+				// alert('User registered successfully!');
 				navigate('/sign-in'); // Redirect to sign-in page
 		} catch (error) {
 				console.error('There was an error registering the user:', error);
-				alert('Error registering user. Please try again.');
+				// alert('Error registering user. Please try again.');
 		}
 	}
   return (

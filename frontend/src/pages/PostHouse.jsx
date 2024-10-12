@@ -39,7 +39,7 @@ function PostHouse() {
         formPayload.append('description', formData.description);
 
         try {
-            const response = await axios.post('/api/houses/post', formPayload, {
+            const response = await axios.post('http://localhost:8000/api/v1/properties/property', formPayload, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
