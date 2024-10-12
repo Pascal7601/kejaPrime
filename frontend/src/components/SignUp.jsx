@@ -7,7 +7,7 @@ import Validation from '../LoginValidation.jsx';
 
 const SignUp = () => {
 	const [values, setValues] = useState({
-		name: '',
+		username: '',
 		email: '',
 		password: '',
 		location: '',
@@ -28,17 +28,15 @@ const SignUp = () => {
     	setErrors(validationErrors);
 
 		// only post if there are no validation errors
-		if (Object.keys(validationErrors).length === 0) {
-			try {
+		try {
 				console.log("Submitting form");
 				const response = await axios.post('http://localhost:8000/api/v1/users/register', values); // Post to backend
 				console.log(response.data);
 				alert('User registered successfully!');
 				navigate('/sign-in'); // Redirect to sign-in page
-			} catch (error) {
+		} catch (error) {
 				console.error('There was an error registering the user:', error);
 				alert('Error registering user. Please try again.');
-			}
 		}
 	}
   return (
@@ -50,7 +48,7 @@ const SignUp = () => {
 				<input
 					type="text"
 					className='form-control'
-					name='name'
+					name='username'
 					autoComplete='off'
 					placeholder='Enter your username'
 					onChange={handleInput}
