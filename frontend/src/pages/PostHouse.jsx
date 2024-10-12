@@ -5,8 +5,8 @@ import Navbar from '../components/Navbar';
 
 function PostHouse() {
     const [formData, setFormData] = useState({
-        image: null,
-        title: '',
+        image_url: null,
+        name: '',
         bedrooms: '',
         price: '',
         location: '',
@@ -22,7 +22,7 @@ function PostHouse() {
     };
 
     const handleImageChange = (e) => {
-        setFormData({ ...formData, image: e.target.files[0] });
+        setFormData({ ...formData, image_url: e.target.files[0] });
     };
 
     const handleSubmit = async (e) => {
@@ -30,24 +30,38 @@ function PostHouse() {
         setLoading(true);
         setMessage('');
 
-        const formPayload = new FormData();
-        formPayload.append('image', formData.image);
-        formPayload.append('title', formData.title);
-        formPayload.append('bedrooms', formData.bedrooms);
-        formPayload.append('price', formData.price);
-        formPayload.append('location', formData.location);
-        formPayload.append('description', formData.description);
-
         try {
-            const response = await axios.post('/api/houses/post', formPayload, {
+            // get the token from local storage
+            const token = localStorage.getItem('access_token');
+            const propertyPayload = {
+                name: formData.name,
+                bedrooms: formData.bedrooms,
+                price: formData.price,
+                location: formData.location,
+                description: formData.description,
+            };
+
+            const propertyResponse = await axios.post('http://localhost:8000/api/v1/properties/property', propertyPayload, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // pass the token to the server
+                },
+            });
+
+            const propertyId = propertyResponse.data.id; // Get the property ID from response
+            // Upload image_url to the property-specific route
+            const imagePayload = new FormData();
+            imagePayload.append('file', formData.image_url);
+
+            await axios.post(`http://localhost:8000/api/v1/properties/${propertyId}/images`, imagePayload, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             setMessage('House posted successfully!');
             setFormData({
-                image: null,
-                title: '',
+                image_url: null,
+                name: '',
                 bedrooms: '',
                 price: '',
                 location: '',
@@ -66,23 +80,23 @@ function PostHouse() {
             <h2>Post Your Apartment for Rent</h2>
             <form onSubmit={handleSubmit} className="post-house-form">
                 <div className="form-group">
-                    <label htmlFor="image">Apartment Image:</label>
+                    <label htmlFor="image_url">Apartment Image:</label>
                     <input
                         type="file"
-                        id="image"
-                        name="image"
+                        id="image_url"
+                        name="image_url"
                         accept="image/*"
                         onChange={handleImageChange}
                         required
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="title">Title:</label>
+                    <label htmlFor="name">Title:</label>
                     <input
                         type="text"
-                        id="title"
-                        name="title"
-                        value={formData.title}
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                         required
                     />
