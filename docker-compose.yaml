@@ -1,0 +1,47 @@
+# version: '3.8'  # You might want to change this to '3' as '3.8' is obsolete
+
+# services:
+#   frontend:
+#     build: ./frontend
+#     ports:
+#       - "3000:3000"
+  
+
+#   backend:
+#     build: ./backend
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       - DATABASE_URL=mysql+mysqldb://pascal:pascal@localhost/kejaPrime_db
+#     depends_on:
+#       - db # ensure database is running before starting our backend
+  
+#   db:
+#     image: mysql:latest
+#     environment:
+#       - MYSQL_USER=pascal
+#       - MYSQL_PASSWORD=pascal
+#       - MYSQL_DATABASE=kejaPrime_db
+#       - MYSQL_ROOT_PASSWORD=pascal
+#     ports:
+#       - "3306:3306"  # MySQL default port
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+    
+#   minio:
+#     hostname: minio
+#     image: minio/minio
+#     container_name: minio
+#     ports:
+#       - "9001:9001"
+#       - "9000:9000"
+#     command: ["server", "/data", "--console-address", ":9001"]
+#     environment:
+#       MINIO_ROOT_USER: "kejaprime"
+#       MINIO_ROOT_PASSWORD: "kejaprime123"
+#     volumes:
+#       - minio:/data  # Ensure this is correctly set
+
+# volumes:
+#   minio:  # Define the volume here
+#   mysql_data:
