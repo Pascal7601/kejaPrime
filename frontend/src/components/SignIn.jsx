@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import '../styles/SignIn.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Validation from '../LoginValidation.jsx';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ const SignIn = () => {
 		password: ''
 	});
 	const [errors, setErrors] = useState({});
+	const navigate =useNavigate();
 
 	const handleInput = (event) => {
 		setValues(prev => ({...prev, [event.target.name]: event.target.value}))
@@ -21,9 +22,18 @@ const SignIn = () => {
 		try {
 			console.log("Submitting form");
 			const response = await axios.post('http://localhost:8000/api/v1/auth/sign_in', values); // Post to backend
-			// console.log(response.data);
+			console.log(response.data);
 			// alert('User registered successfully!');
-			navigate('/sign-in'); // Redirect to sign-in page
+			if (response.status == 200) {
+				const { access_token, token_type } = response.data;
+
+				// store token securely on local storage
+				localStorage.setItem('access_token', access_token);
+				localStorage.setItem('token_type', token_type);
+				navigate('/post-house'); // Redirect to sign-in page
+			} else {
+				console.error('Login was unsuccessful. Response:', response);
+			}
 		} catch (error) {
 			console.error('There was an error signing in:', error);
 			// alert('Error registering user. Please try again.');
