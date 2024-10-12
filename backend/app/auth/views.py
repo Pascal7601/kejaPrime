@@ -6,6 +6,7 @@ from core import http_msg
 from . import auth
 from sqlalchemy.orm import Session
 from core.database import get_db
+from fastapi.responses import JSONResponse
 
 
 security = HTTPBearer()
@@ -23,4 +24,14 @@ def login(details: schemas.UserSignInModel, db: Session = Depends(get_db)):
   
   token = auth.generate_token({"sub": user.email})
   
-  return {"access_token": token, "token_type": "bearer"}
+  resp = JSONResponse(content={"access_token": token, "token_type": "bearer"})
+
+  resp.set_cookie(
+    key="access_token",
+    value=token,
+    httponly=True,
+    secure=True
+  )
+
+  return resp
+

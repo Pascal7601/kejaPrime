@@ -20,7 +20,7 @@ function App() {
               <Route path="/listings" element={<Listings />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/Sign-up" element={<SignUp />} />
-              <Route pat="/post-house" element={<PostHouse />} />
+              <Route path="/post-house" element={<PostHouse />} />
               <Route path="/Sign-in" element={<SignIn />} />
             </Routes>
       </Router>

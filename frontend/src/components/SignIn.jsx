@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import '../styles/SignIn.css';
 import {Link} from 'react-router-dom';
 import Validation from '../LoginValidation.jsx';
+import axios from 'axios';
 
 const SignIn = () => {
 	const [values, setValues] = useState({
@@ -11,11 +12,22 @@ const SignIn = () => {
 	const [errors, setErrors] = useState({});
 
 	const handleInput = (event) => {
-		setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+		setValues(prev => ({...prev, [event.target.name]: event.target.value}))
 	}
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 		setErrors(Validation(values));
+
+		try {
+			console.log("Submitting form");
+			const response = await axios.post('http://localhost:8000/api/v1/auth/sign_in', values); // Post to backend
+			// console.log(response.data);
+			// alert('User registered successfully!');
+			navigate('/sign-in'); // Redirect to sign-in page
+		} catch (error) {
+			console.error('There was an error signing in:', error);
+			// alert('Error registering user. Please try again.');
+		}
 	}
 
   return (
