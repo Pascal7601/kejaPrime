@@ -18,10 +18,11 @@ const SignUp = () => {
 
 	//handle input change
 	const handleInput = (event) => {
-		setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+		setValues(prev => ({...prev, [event.target.name]: event.target.value}))
 	};
 	//submit form; handle it as async
 	const handleSubmit = async (event) => {
+		console.log("Form submitted");
 		event.preventDefault();
 		const validationErrors = Validation(values);
     	setErrors(validationErrors);
@@ -29,8 +30,9 @@ const SignUp = () => {
 		// only post if there are no validation errors
 		if (Object.keys(validationErrors).length === 0) {
 			try {
-				const response = await axios.post('/api/signup', values); // Post to backend
-				console.log(reponse.data);
+				console.log("Submitting form");
+				const response = await axios.post('http://localhost:8000/api/v1/users/register', values); // Post to backend
+				console.log(response.data);
 				alert('User registered successfully!');
 				navigate('/sign-in'); // Redirect to sign-in page
 			} catch (error) {
@@ -109,7 +111,7 @@ const SignUp = () => {
 			<div className='form-group mb-3'>
 				<label htmlFor="password"> Password:</label>
 				<input
-					type="text"
+					type="password"
 					name='password'
 					className='form-control'
 					autoComplete='off'

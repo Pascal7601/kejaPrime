@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   
 	// this Function will assist us to login the urse (to integrate it with API later)
 	const login = (type) => {
-	  setIsLoggedIn(true);
+	  setIsLoggedIn(false);
 	  setUserType(type); // type 'landlord' or 'tenant'
 	};
   
