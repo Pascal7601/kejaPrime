@@ -30,7 +30,7 @@ const SignIn = () => {
 				// store token securely on local storage
 				localStorage.setItem('access_token', access_token);
 				localStorage.setItem('token_type', token_type);
-				navigate('/post-house'); // Redirect to sign-in page
+				navigate('/home'); // Redirect to sign-in page
 			} else {
 				console.error('Login was unsuccessful. Response:', response);
 			}
