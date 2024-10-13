@@ -61,7 +61,7 @@ const FeedsPage = () => {
   
 		const response = await axios.post('http://localhost:8000/api/v1/feeds', formData, {
 		  headers: {
-			'Content-Type': 'multipart/form-data',
+			'Content-Type': 'application/json',
 			'Authirization': `Bearer ${token}`,
 		  },
 		});
