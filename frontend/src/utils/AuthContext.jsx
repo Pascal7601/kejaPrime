@@ -4,7 +4,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(true);
-	const [userType, setUserType] = useState('landlord');
+	const [userType, setUserType] = useState('tenant');
   
 	// this Function will assist us to login the urse (to integrate it with API later)
 	const login = (type) => {
