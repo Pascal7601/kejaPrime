@@ -7,10 +7,12 @@ import Navbar from '../components/Navbar';
 import '../styles/Profile.css'
 
 function Profile() {
+    const [profile, setProfile] = useState(null);
     const [userType, setUserType] = useState(''); 
     const [houses, setHouses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [savedHouses, setSavedHouses] = useState([]);
+    const [activeTab, setActiveTab] = useState('houses');
 
     useEffect(() => {
         async function fetchProfile() {
@@ -27,6 +29,7 @@ function Profile() {
                 const profileRes = await axios.get('http://localhost:8000/api/v1/users/profile', config);
                 const isLandlord = profileRes.data.is_landlord;
                 setUserType(isLandlord);
+                setProfile(profileRes.data);
 
                 const userId = profileRes.data.id;
                 const userIdStr = String(userId)
@@ -76,6 +79,10 @@ function Profile() {
         fetchProfile();
     }, []);
 
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);  // Change active tab
+    };
+
     const handleSaveHouse = (houseId) => {
         // Check if the house is already saved
         const isSaved = savedHouses.includes(houseId);
@@ -114,31 +121,70 @@ function Profile() {
 
     return (
         <div className="profile-page">
-            <div className="flex-container">
-                <Navbar />
-                <h3 className="profile-title">My Profile</h3>
-                <h2>{userType ? 'Posted Houses' : 'Saved Houses'}</h2>
-                <div className="house-list">
-                    {houses.length === 0 ? (
-                        <p>No houses found</p>
-                    ) : (
-                        houses.map(house => (
-                            <div key={house.id} className="house-item">
-                                {renderHouseImage(house.imageUrl, house.title)}
-                                <h3>{house.title}</h3>
-                                <p>{house.description}</p>
-                                <p>Price: {house.price}</p>
-                                <p>Location: {house.location}</p>
+            <Navbar />
+            <div className="profile-container">
+                {/* Profile picture placeholder */}
+                <div className="profile-header">
+                    <div className="profile-picture-placeholder">
+                        <p>Profile Picture (Add Later)</p>
+                    </div>
+                </div>
+
+                {/* Navigation Tabs */}
+                <div className="profile-tabs">
+                    <button 
+                        className={`tab-button ${activeTab === 'houses' ? 'active' : ''}`} 
+                        onClick={() => handleTabChange('houses')}
+                    >
+                        {userType ? 'Posted Houses' : 'Saved Houses'}
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'about' ? 'active' : ''}`} 
+                        onClick={() => handleTabChange('about')}
+                    >
+                        About Me
+                    </button>
+                </div>
+
+                {/* Tab Content */}
+                <div className="tab-content">
+                    {activeTab === 'houses' && (
+                        <div className="houses-section">
+                            <h2>{userType ? 'Posted Houses' : 'Saved Houses'}</h2>
+                            <div className="house-list">
+                                {houses.length === 0 ? (
+                                    <p>No houses found</p>
+                                ) : (
+                                    houses.map(house => (
+                                        <div key={house.id} className="house-item">
+                                            {renderHouseImage(house.imageUrl, house.title)}
+                                            <h3>{house.title}</h3>
+                                            <p>{house.description}</p>
+                                            <p>Price: {house.price}</p>
+                                            <p>Location: {house.location}</p>
+                                        </div>
+                                    ))
+                                )}
                             </div>
-                        ))
+                        </div>
+                    )}
+
+                    {activeTab === 'about' && (
+                        <div className="profile-about">
+                            <h4>About Me</h4>
+                            {profile && (
+                                <div>
+                                    <p>Name: {profile.username}</p>
+                                    <p>Email: {profile.email}</p>
+                                    <p>Status: {profile.is_landlord ? "Landlord" : "Tenant"}</p>
+                                </div>
+                            )}
+                        </div>
                     )}
                 </div>
-                <div className="footing">
-                    <Footer />             
-                </div>
             </div>
+            <Footer />
         </div>
     );
 }
-
 export default Profile;

@@ -1,40 +1,78 @@
+/* Profile page container */
 .profile-page {
-    overflow: hidden;
-    width: 100%;
-    margin-top: 50px;
-    padding-top: 60px;
-    font-family: Arial, sans-serif;
+    padding: 20px;
 }
-.flex-container {
+
+.profile-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    align-items: center;
 }
-.footing {
-    margin-top: auto;
-}
-.profile-title{
-    color: #4ea685;
 
+/* Profile header for picture */
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-picture-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #888;
+}
+
+/* Tabs */
+.profile-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    background-color: #ddd;
+    border-radius: 5px;
+}
+
+.tab-button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* House list styling */
+.houses-section {
+    width: 100%;
 }
 
 .house-list {
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 .house-item {
-    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
     padding: 15px;
-    margin: 10px;
     width: 300px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
-.house-item h3 {
-    margin-bottom: 10px;
+.house-image {
+    max-width: 100%;
+    height: auto;
 }
 
-.house-item p {
-    margin: 5px 0;
+.profile-about {
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
 }
