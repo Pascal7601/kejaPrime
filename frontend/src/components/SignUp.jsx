@@ -79,7 +79,7 @@ const SignUp = () => {
 				/>
 				{errors.location && <span className='text-danger'> {errors.location} </span>}
 			</div>
-			{/* role: property owner of renter */}
+			{/* role: landlord of renter */}
 			<div className='form-group mb-3'>
 				<label htmlFor="usertype"> Role: </label>
 				<div className='form-check'>
@@ -91,6 +91,7 @@ const SignUp = () => {
 						onChange={handleInput}
 						id='landlord'
 					/>
+					<label className="form-check-label" htmlFor="landlord">landlord</label>
 					<label className="form-check-label" htmlFor="landlord">landlord</label>
 				</div>
 				<div className='form-check'>

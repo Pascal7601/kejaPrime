@@ -17,27 +17,30 @@ const SignIn = () => {
 	}
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+
+		const validationErrors = Validation(values);
 		setErrors(Validation(values));
-
-		try {
-			console.log("Submitting form");
-			const response = await axios.post('http://localhost:8000/api/v1/auth/sign_in', values); // Post to backend
-			console.log(response.data);
-			// alert('User registered successfully!');
-			if (response.status == 200) {
-				const { access_token, token_type } = response.data;
-
-				// store token securely on local storage
-				localStorage.setItem('access_token', access_token);
-				localStorage.setItem('token_type', token_type);
-				navigate('/home'); // Redirect to sign-in page
-			} else {
-				console.error('Login was unsuccessful. Response:', response);
+		// if (Object.keys(validationErrors).length === 0) {
+			try {
+				console.log("Submitting form");
+				const response = await axios.post('http://localhost:8000/api/v1/auth/sign_in', values); // Post to backend
+				console.log(response.data);
+				// alert('User registered successfully!');
+				if (response.status == 200) {
+					const { access_token, token_type } = response.data;
+	
+					// store token securely on local storage
+					localStorage.setItem('access_token', access_token);
+					localStorage.setItem('token_type', token_type);
+					navigate('/home'); // Redirect to sign-in page
+				} else {
+					console.error('Login was unsuccessful. Response:', response);
+				}
+			} catch (error) {
+				console.error('There was an error signing in:', error);
+				// alert('Error registering user. Please try again.');
 			}
-		} catch (error) {
-			console.error('There was an error signing in:', error);
-			// alert('Error registering user. Please try again.');
-		}
+		// }
 	}
 
   return (

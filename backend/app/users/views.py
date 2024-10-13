@@ -5,9 +5,11 @@ from .models import User
 from . import schemas
 from sqlalchemy.orm import Session
 from core import http_msg
-from app.auth.auth import generate_hash_pwd
+from app.auth.auth import generate_hash_pwd, decode_token
 # from core.settings import EmailSchema
 from fastapi.responses import JSONResponse
+from app.auth.views import security
+from fastapi.security import HTTPAuthorizationCredentials
 
 user_route = APIRouter(prefix='/api/v1/users', tags=['users'])
 
@@ -73,6 +75,26 @@ def update_user(email: str, user_data: schemas.UserUpdateModel, db: Session = De
   db.commit()
   db.refresh(existing_user)
   return existing_user
+
+@user_route.get('/profile', response_model=schemas.UserResponseModel)
+async def profile(
+  db: Session = Depends(get_db),
+  credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+  """
+  get user's profile that is currently logged in
+  """
+  # Decode the token to get user information
+  token = credentials.credentials
+  payload = decode_token(token)
+  email = payload.get("sub")
+  if not email:
+      raise HTTPException(status_code=401, detail="Invalid token or no email found.")
+
+    # Verify that the user is a landlord
+  user = User.get_user_by_email(email, db)
+  return user
+
 
 
 @user_route.delete('/user')
