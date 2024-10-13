@@ -11,14 +11,14 @@ const SignUp = () => {
 		email: '',
 		password: '',
 		location: '',
-		role:'renter'   // new field for user type (property owner or renter)
+		role:''   // new field for user type (property owner or renter)
 	});
 	const [errors, setErrors] = useState({});
 	const navigate =useNavigate(); //hook to navigate to another route
 
 	//handle input change
 	const handleInput = (event) => {
-		setValues(prev => ({...prev, [event.target.name]: event.target.value}))
+			setValues(prev => ({ ...prev, [event.target.name]: event.target.value }));
 	};
 	//submit form; handle it as async
 	const handleSubmit = async (event) => {
@@ -79,7 +79,7 @@ const SignUp = () => {
 				/>
 				{errors.location && <span className='text-danger'> {errors.location} </span>}
 			</div>
-			{/* role: property owner of renter */}
+			{/* role: landlord of renter */}
 			<div className='form-group mb-3'>
 				<label htmlFor="usertype"> Role: </label>
 				<div className='form-check'>
@@ -87,11 +87,12 @@ const SignUp = () => {
 						type="radio"
 						className='form-check-input'
 						name='role'
-						value='propertyOwner'
+						value='landlord'
 						onChange={handleInput}
-						id='propertyOwner'
+						id='landlord'
 					/>
-					<label className="form-check-label" htmlFor="propertyOwner">Property Owner</label>
+					<label className="form-check-label" htmlFor="landlord">landlord</label>
+					<label className="form-check-label" htmlFor="landlord">landlord</label>
 				</div>
 				<div className='form-check'>
 					<input
