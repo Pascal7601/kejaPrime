@@ -26,7 +26,7 @@ const SignIn = () => {
     const validationErrors = Validation(values);
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
+    // if (Object.keys(validationErrors).length === 0) {
       try {
         await login(values.email, values.password);
         navigate('/home'); // Redirect to home page after successful login
@@ -34,7 +34,7 @@ const SignIn = () => {
         console.error('There was an error signing in:', error);
         setErrors({ login: 'Login failed. Please check your credentials.' });
       }
-    }
+    // }
 
     setIsLoading(false);
   };
