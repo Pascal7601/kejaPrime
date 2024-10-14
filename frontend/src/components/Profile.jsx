@@ -176,6 +176,7 @@ function Profile() {
                                 <div>
                                     <p>Name: {profile.username}</p>
                                     <p>Email: {profile.email}</p>
+                                    <p>Located: {profile.location}</p>
                                     <p>Status: {profile.is_landlord ? "Landlord" : "Tenant"}</p>
                                 </div>
                             )}

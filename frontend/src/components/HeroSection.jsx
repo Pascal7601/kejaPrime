@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import '../styles/HeroSection.css';
+import { AuthContext } from '../utils/AuthContext';
 import appartment from '../assets/appartment.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const HeroSection = () => {
+	const { isLoggedIn } = useContext(AuthContext);
   return (
 	<section className='hero-section'>
 		<div className='container-lg'>
@@ -18,9 +20,14 @@ const HeroSection = () => {
 						<p className='lead mt-4 mb-sm-3'>
 						Find a variety of houses that suit you easily and forget about the difficulties of finding a house for you.
 						</p>
-						<Link to="/sign-in" className="call-to mb-4 mb-sm-3 mb-md-4 mb-lg-5" >
-							Get Started
-						</Link>
+						{isLoggedIn ? (
+                			// Display a different message or content for logged-in users
+                			<p>You are logged in!</p>
+							) : (
+								<Link to="/sign-in" className="call-to mb-4 mb-sm-3 mb-md-4 mb-lg-5" >
+								Get Started
+								</Link>
+						)}
 					</div>
 				</div>
 				<div className='col-md-5 text-center hero-image d-none d-md-block img-container'>

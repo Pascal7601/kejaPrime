@@ -96,54 +96,6 @@ const FeedsPage = () => {
 		</div>
 	  </div>
 	);
-    try {
-      const formData = new FormData();
-      formData.append('file', newFeed.image);
-      formData.append('description', newFeed.description);
-      formData.append('location', newFeed.location);
-
-      const response = await axios.post('http://localhost:8000/api/v1/feeds', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setFeeds([...feeds, response.data]);
-      setNewFeed({ image: null, description: '', location: '' });
-    } catch (error) {
-      console.error('Error creating feed:', error);
-    }
-  };
-
-  return (
-    <div className="feeds-page">
-      {isLoggedIn ? (
-        <div className="feed-input">
-          <input type="file" onChange={handleImageChange} />
-          <input type="text" name="description" placeholder="Description" onChange={handleInputChange} />
-          <input type="text" name="location" placeholder="Location" onChange={handleInputChange} />
-          <button onClick={handleSubmit}>Submit</button>
-        </div>
-      ) : (
-        <p>Please log in to create feeds.</p>
-      )}
-      <div className="feed-list">
-  			{feeds.length > 0 && feeds.map((feed) => (
-    			<div className="feed-item" key={feed.id}>
-      			{feed.images.map((imageObj, index) => (
-        			<img
-          			key={index}
-          			src={`http://localhost:8000/${imageObj.image_url}`}  // Access the image URL
-          			alt={`Feed Image ${index + 1}`}
-        			/>
-      			))}
-      			<p>{feed.description}</p>
-      			<p>{feed.location}</p>
-    			</div>
- 				))}
-			</div>
-    </div>
-  );
 };
   
 export default FeedsPage;
