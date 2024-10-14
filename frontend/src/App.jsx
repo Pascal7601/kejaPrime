@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import FeedsPage from './pages/FeedsPage'
 import PostHouse from './pages/PostHouse';
 import SignIn from './components/SignIn';
+import Dashboard from './components/Dashboard';
 
 import './App.css';
 
@@ -25,6 +26,7 @@ function App() {
               <Route path="/Sign-up" element={<SignUp />} />
               <Route path="/post-house" element={<PostHouse />} />
               <Route path="/Sign-in" element={<SignIn />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
       </Router>
     </AuthProvider>
