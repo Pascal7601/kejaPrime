@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import FeedsPage from './pages/FeedsPage'
 import PostHouse from './pages/PostHouse';
 import SignIn from './components/SignIn';
+import Dashboard from './components/Dashboard';
 
 import './App.css';
 
