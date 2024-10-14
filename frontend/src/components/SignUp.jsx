@@ -92,7 +92,6 @@ const SignUp = () => {
 						id='landlord'
 					/>
 					<label className="form-check-label" htmlFor="landlord">landlord</label>
-					<label className="form-check-label" htmlFor="landlord">landlord</label>
 				</div>
 				<div className='form-check'>
 					<input
