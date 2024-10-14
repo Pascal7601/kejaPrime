@@ -80,24 +80,6 @@ function Profile() {
     }
   };
 
-<<<<<<< HEAD
-                    {activeTab === 'about' && (
-                        <div className="profile-about">
-                            <h4>About Me</h4>
-                            {profile && (
-                                <div>
-                                    <p>Name: {profile.username}</p>
-                                    <p>Email: {profile.email}</p>
-                                    <p>Located: {profile.location}</p>
-                                    <p>Status: {profile.is_landlord ? "Landlord" : "Tenant"}</p>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
-            </div>
-            <Footer />
-=======
   const renderHouseImage = (imageUrl, title) => {
     const src = imageUrl ? `http://localhost:8000/${imageUrl}` : "/path/to/placeholder.jpg";
     const altText = imageUrl ? title : "No image available";
@@ -116,7 +98,6 @@ function Profile() {
           <div className="profile-picture-placeholder">
             <p>Profile Picture (Add Later)</p>
           </div>
->>>>>>> 922e1e083ae07dd6ed9d81e773bfcd49146fba94
         </div>
 
         {/* Navigation Tabs */}
