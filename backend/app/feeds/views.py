@@ -20,11 +20,47 @@ import os
 feed_route = APIRouter(prefix='/api/v1/feeds', tags=['feeds'])
 
 
+@feed_route.get('/me')
+async def my_feeds(
+   db: Session = Depends(get_db),
+   credentials: HTTPBasicCredentials = Depends(security)
+):
+  """
+   fetch personal user feeds
+  """
+  token = credentials.credentials
+  payload = decode_token(token)
+  email = payload.get("sub")
+  if not email:
+    raise HTTPException(status_code=401, detail="Invalid token or no email found.")
+  
+  user = User.get_user_by_email(email, db)
+  if user.is_landlord:
+    raise http_msg.forbidden()
+  
+  feeds = db.query(Feed).filter(Feed.user_id == user.id).all()
+  if not feeds:
+     raise http_msg.not_found("feeds")
+  
+  feed_data = []
+  for feed in feeds:
+      images = db.query(FeedImage).filter_by(feed_id=feed.id).all()
+      feed_data.append({
+        "id": feed.id,
+        "user_id": feed.user_id,
+        "location": feed.location,
+        "description": feed.description,
+        "images": [{"image_url": image.image_url} for image in images]
+    })
+    
+  return feed_data
+   
+
 @feed_route.post('/')
 async def upload_feed(
-  location: str,
-  description: str,
-  file: UploadFile,
+  location: str = Form(...),
+  description: str = Form(...),
+  file: UploadFile = File(...),
   db: Session = Depends(get_db),
   credentials: HTTPBasicCredentials = Depends(security)
 ):
