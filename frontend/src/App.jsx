@@ -22,7 +22,8 @@ function App() {
               <Route path="/Sign-in" element={<SignIn />} />
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
-              <Route path="/post-feed" element={<FeedsPage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/feeds" element={<FeedsPage />} />
               <Route path="/listings" element={<Listings />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/post-house" element={<PostHouse />} />
