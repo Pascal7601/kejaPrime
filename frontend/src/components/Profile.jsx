@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Footer from "../components/Footer";
 import Navbar from '../components/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Profile.css';
 
 function Profile() {
   const [profile, setProfile] = useState(null);
-  const [userType, setUserType] = useState(false); 
+  const [userType, setUserType] = useState(false);
   const [houses, setHouses] = useState([]);
   const [feeds, setFeeds] = useState([]); // State for tenant's feeds
   const [loading, setLoading] = useState(true);
@@ -91,33 +92,34 @@ function Profile() {
   }
 
   return (
+    <>
+    <Navbar />
     <div className="profile-page">
-      <Navbar />
-      <div className="profile-container">
+      <div className='container my-5 mb-5 profile-container'>
         <div className="profile-header">
-          <div className="profile-picture-placeholder">
+          <div className='profile-picture-placeholder border rounded-circle p-5 bg-light'>
             <p>Profile Picture (Add Later)</p>
           </div>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="profile-tabs">
-          <button 
-            className={`tab-button ${activeTab === 'houses' ? 'active' : ''}`} 
+        <div className="profile-tabs mb-4">
+          <button
+            className={`tab-button ${activeTab === 'houses' ? 'active' : ''}`}
             onClick={() => handleTabChange('houses')}
           >
             {userType ? 'Posted Houses' : 'Saved Houses'}
           </button>
           {!userType && (
-            <button 
-              className={`tab-button ${activeTab === 'feeds' ? 'active' : ''}`} 
+            <button
+              className={`tab-button ${activeTab === 'feeds' ? 'active' : ''}`}
               onClick={() => handleTabChange('feeds')}
             >
               My Feeds
             </button>
           )}
-          <button 
-            className={`tab-button ${activeTab === 'about' ? 'active' : ''}`} 
+          <button
+            className={`tab-button ${activeTab === 'about' ? 'active' : ''}`}
             onClick={() => handleTabChange('about')}
           >
             About Me
@@ -135,11 +137,15 @@ function Profile() {
                 ) : (
                   houses.map(house => (
                     <div key={house.id} className="house-item">
-                      {renderHouseImage(house.imageUrl, house.title)}
-                      <h3>{house.title}</h3>
-                      <p>{house.description}</p>
-                      <p>Price: {house.price}</p>
-                      <p>Location: {house.location}</p>
+                      <div className='card'>
+                        {renderHouseImage(house.imageUrl, house.title)}
+                        <div className='card-body'>
+                          <h3 className='card-title'>{house.title}</h3>
+                          <p className='card-text'>{house.description}</p>
+                          <p className='card-text'>Price: {house.price}</p>
+                          <p className='card-text'>Location: {house.location}</p>
+                        </div>
+                      </div>
                     </div>
                   ))
                 )}
@@ -180,8 +186,9 @@ function Profile() {
           )}
         </div>
       </div>
-      <Footer />
     </div>
+    <Footer />
+    </>
   );
 }
 
