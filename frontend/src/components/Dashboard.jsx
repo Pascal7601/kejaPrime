@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
+import Navbar from '../components/Navbar';
 import axios from 'axios'; // Import axios to make API requests
 
 function Dashboard() {
@@ -42,6 +43,7 @@ function Dashboard() {
 	}
   return (
 	<div className='renters-dashboard container mt-5'>
+		<Navbar />
 		<h2>Renter's Dashboard</h2>
 		< SearchBar onSearch={handleSearch} />
 

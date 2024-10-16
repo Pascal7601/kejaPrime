@@ -27,7 +27,7 @@ const HeroSection = () => {
 										Landlord Dashboard
 									</Link>
 								) : (
-									<Link to="/home" className="call-to mb-4 mb-sm-3 mb-md-4 mb-lg-5">
+									<Link to="/home" className="bubble">
 										Tenant Dashboard
 									</Link>
 								)

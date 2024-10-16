@@ -1,16 +1,20 @@
 import React from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../utils/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Navbar.css';
+
 
 function Navbar() {
   // Destructure values from AuthContext
   const { isLoggedIn, userType, logout } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    logout(); // Call the logout function from AuthContext
+    navigate('/sign-in');
+    logout(); // Call the logout function from AuthContex
   };
 
   return (
@@ -51,11 +55,11 @@ function Navbar() {
                         Dashboard
                       </Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link className="nav-link" to="/listings">
                         Listings
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <Link className="nav-link" to="/feeds">
                         Feeds

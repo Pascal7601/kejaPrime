@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from '../components/Navbar';
+import "../styles/FeedsPage.css";
 import axios from 'axios';
 
 const FeedsPage = () => {
@@ -74,41 +76,42 @@ const FeedsPage = () => {
 
   return (
     <div className="container-fluid feeds-page">
+      <Navbar />
       <div className="row">
-        {/* Feed Display Section - Centered */}
-        <div className="col-md-8 feed-list mx-auto">
-          {feeds.length > 0 ? (
-            feeds.map((feed) => (
-              <div className="feed-item mb-4" key={feed.id}>
-                <div className="feed-images d-flex justify-content-center mb-3">
-                  {Array.isArray(feed.images) &&
-                    feed.images.map((imageObj, index) => (
-                      <img
-                        key={index}
-                        src={`http://localhost:8000/${imageObj.image_url}`}
-                        alt={`Feed Image ${index + 1}`}
-                        className="img-fluid feed-img"
-                      />
-                    ))}
+        <div className=" right-side col-md-9 col-lg-10 order-2 order-sm-1">
+          <div className="crud d-flex flex-column">
+            {feeds.length > 0 ? (
+              feeds.map((feed) => (
+                <div className="feed-item mb-4" key={feed.id}>
+                  <div className="feed-images d-flex justify-content-center mb-3">
+                    {Array.isArray(feed.images) &&
+                      feed.images.map((imageObj, index) => (
+                        <img
+                          key={index}
+                          src={`http://localhost:8000/${imageObj.image_url}`}
+                          alt={`Feed Image ${index + 1}`}
+                          className="img-fluid feed-img"
+                        />
+                      ))}
+                  </div>
+                  <p className="text-center">{feed.description}</p>
+                  <p className="text-center text-muted">{feed.location}</p>
                 </div>
-                <p className="text-center">{feed.description}</p>
-                <p className="text-center text-muted">{feed.location}</p>
-              </div>
-            ))
-          ) : (
-            <p className="text-center">No feeds available yet.</p>
-          )}
+              ))
+            ) : (
+              <p className="text-center">No feeds available yet.</p>
+            )}
+          </div>
         </div>
-
-        {/* Feed Creation Form - Positioned on the right */}
-        {isLoggedIn && (
-          <div className="col-md-4">
-            <div className="feed-input bg-light p-4">
+        <div className="col-md-3 col-lg-2 order-1 order-sm-2">
+          {isLoggedIn && (
+            <div className="create-feed bg-light p-4">
               <h5>Create a New Feed</h5>
+              <div className="left-side">
               <input
                 type="file"
                 className="form-control mb-3"
-                onChange={handleImageChange}
+                onChange={(event) => setNewFeed({ ...newFeed, image: event.target.files[0] })}
               />
               <input
                 type="text"
@@ -127,9 +130,11 @@ const FeedsPage = () => {
               <button className="btn btn-primary w-100" onClick={handleSubmit}>
                 Submit
               </button>
+              </div>
             </div>
-          </div>
-        )}
+              
+          )}
+        </div>
       </div>
     </div>
   );
