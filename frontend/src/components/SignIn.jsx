@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import '../styles/SignIn.css';
 import { Link, useNavigate } from 'react-router-dom';
-import Validation from '../LoginValidation.jsx';
+// import Validation from '../LoginValidation.jsx';
 import axios from 'axios';
 import { AuthContext } from '../utils/AuthContext';
 
@@ -23,8 +23,8 @@ const SignIn = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    const validationErrors = Validation(values);
-    setErrors(validationErrors);
+    // const validationErrors = Validation(values);
+    // setErrors(validationErrors);
 
     // if (Object.keys(validationErrors).length === 0) {
       try {
