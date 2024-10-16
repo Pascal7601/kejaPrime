@@ -41,6 +41,9 @@
 .call-to:hover {
 	color: black;
 }
+.bubble {
+	display: none;
+}
   
 @media (max-width: 576px) {
 	.hero-description{

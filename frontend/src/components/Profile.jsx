@@ -180,6 +180,7 @@ function Profile() {
                   <p>Name: {profile.username}</p>
                   <p>Email: {profile.email}</p>
                   <p>Status: {profile.is_landlord ? "Landlord" : "Tenant"}</p>
+                  <p>Location: {profile.location}</p>
                 </div>
               )}
             </div>
