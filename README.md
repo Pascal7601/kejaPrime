@@ -4,10 +4,12 @@
 
 # frontend
 npm install -> install dependencies
+
 npm run dev
 
 # backend
 pip install -r requirements.txt
+
 fastapi dev main.py
 
 # Project Overview
