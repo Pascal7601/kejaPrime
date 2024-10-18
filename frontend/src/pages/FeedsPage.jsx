@@ -103,10 +103,12 @@ const FeedsPage = () => {
             )}
           </div>
         </div>
-        <div className="col-md-3 col-lg-2 order-1 order-sm-2">
+        <div className="roight col-md-3 col-lg-2 order-1 order-sm-2">
           {isLoggedIn && (
             <div className="create-feed bg-light p-4">
-              <h5>Create a New Feed</h5>
+              <h5>Have you seen a house you like:</h5>
+              <h5>Share It:</h5>
+              <h5 className="creat">Create a New Feed</h5>
               <div className="left-side">
               <input
                 type="file"
@@ -127,7 +129,7 @@ const FeedsPage = () => {
                 className="form-control mb-3"
                 onChange={handleInputChange}
               />
-              <button className="btn btn-primary w-100" onClick={handleSubmit}>
+              <button className="btn1 btn-primary w-100" onClick={handleSubmit}>
                 Submit
               </button>
               </div>
