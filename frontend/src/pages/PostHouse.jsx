@@ -77,6 +77,7 @@ function PostHouse() {
 
     return (
         <div className="post-house-page">
+            <Navbar />
             <h2>Post Your Apartment for Rent</h2>
             <form onSubmit={handleSubmit} className="post-house-form">
                 <div className="form-group">

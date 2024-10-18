@@ -1,5 +1,17 @@
 # kejaPrime
 
+# setup
+
+# frontend
+npm install -> install dependencies
+
+npm run dev
+
+# backend
+pip install -r requirements.txt
+
+fastapi dev main.py
+
 # Project Overview
 
 KejaPrime is a web-based platform designed to help users in Kenya find rental houses within specific locations. The app allows users to search for available homes or rental properties near their current residence or in other desired areas. By offering an intuitive and interactive user experience, the platform enables house hunters to locate properties that match their preferences, including price, size, and amenities.
