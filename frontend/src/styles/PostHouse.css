@@ -6,6 +6,14 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.post-house-page h2 {
+    font-size: 18px;
+  }
+.post-house-form {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
 .post-house-form .form-group {
     margin-bottom: 15px;

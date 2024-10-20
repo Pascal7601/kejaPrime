@@ -29,7 +29,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<div className='text-center mt-3'>
-				<p className='text-info'>&copy; {currentYear} Keja Prime. All rights reserved</p>
+				<p className='text-dark'>&copy; {currentYear} Keja Prime. All rights reserved</p>
 			</div>
 		</div>
 	</footer>
