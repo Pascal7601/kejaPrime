@@ -21,16 +21,16 @@ const Home = () => {
 				<div className="about-us">
 					<p>
 						At KejaPrime, our goal is to make finding rental properties
-						seamless and hassle-free. We connect renters with the best 
-						housing options that match their preferences and budget, 
+						seamless and hassle-free. We connect renters with the best
+						housing options that match their preferences and budget,
 						ensuring a smooth and reliable experience.Don't let the hassle
 						of finding a house get into the way of living a life you deserve.
-						With just a tap of a button you get to connect with renters and 
+						With just a tap of a button you get to connect with renters and
 						realtors without the need of getting through agents and brokers.
 					</p>
 					<img  className='img-fluid' src={location} alt="phone-locating" />
 				</div>
-				
+
 				<h2>Our Goals</h2>
 				<h4>Helping You Find Your Dream Home</h4>
 				<div className="goals">
@@ -49,7 +49,7 @@ const Home = () => {
 				</div>
 			</section>
 		</div>
-      
+
       <Footer />
     </div>
   );

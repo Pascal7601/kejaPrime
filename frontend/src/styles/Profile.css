@@ -3,21 +3,48 @@
 }
 /* Profile page container */
 .profile-page {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    background-image: url('../assets/bg.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
 .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  align-items: flex-start;  /* Align items to the top */
+  background-color:#f0f0f0
+}
+/* Left Panel for PostHouse form */
+.left-panel {
+  flex: 1;  /* Adjusts based on screen size */
+  max-width: 300px;
+  padding: 15px;
+  background-color: #e6d1d1;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+}
+.left-panel h4 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
-/* Profile header for picture */
+/* Right Panel */
+.right-panel {
+  flex: 3;  /* Takes up more space for profile details */
+  padding: 20px;
+  background-color: #e2dada;
+  border-radius: 8px;
+  background-image: url('../assets/white.png');
+}
 .profile-header {
     margin-bottom: 20px;
 }
@@ -74,7 +101,8 @@
 
 .house-item {
     background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    border: none;
+    border-radius: 10px;
     padding: 15px;
     width: 300px;
     text-align: center;
@@ -125,6 +153,8 @@
   .footer {
     padding: 10px 0; /* Add padding for the footer */
     margin-top: 0px;
+    background-color: #888;
+    color: white;
   }
 
   /* For smaller screens */
