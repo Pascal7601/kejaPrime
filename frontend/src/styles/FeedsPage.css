@@ -33,7 +33,7 @@ height: 100%;
 .right-side {
 	overflow-y: auto;
 	height: 100%;
-	background: #4ea685;
+	background: radial-gradient(circle, #4ea685, #3e8f70);
 	padding-bottom:20px;
 }
 .feed-item {
