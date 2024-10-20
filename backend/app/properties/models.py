@@ -17,6 +17,7 @@ class Property(BaseModel):
   # relatioships
   landlord = relationship("User", back_populates="properties")
   images = relationship("PropertyImage", back_populates="property", cascade="all, delete-orphan")
+  bookmarks = relationship("Bookmarks", back_populates="property")
 
 class PropertyImage(BaseModel):
     __tablename__ = 'property_images'
