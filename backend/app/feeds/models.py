@@ -14,6 +14,7 @@ class Feed(BaseModel):
   # relationships
   images = relationship("FeedImage", back_populates="feed", cascade="all, delete-orphan")
   user = relationship('User', back_populates='feeds')
+  bookmarks = relationship("Bookmarks", back_populates="feed")
 
 class FeedImage(BaseModel):
     __tablename__ = 'feed_images'

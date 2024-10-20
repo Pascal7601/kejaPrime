@@ -18,6 +18,7 @@ class User(BaseModel):
 
   properties = relationship("Property", back_populates="landlord", cascade="all, delete-orphan")
   feeds = relationship("Feed", back_populates="user", cascade="all, delete-orphan")
+  bookmarks = relationship("Bookmarks", back_populates="user")
 
 
   @classmethod
