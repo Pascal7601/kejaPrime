@@ -37,6 +37,27 @@ const FeedsPage = () => {
     fetchFeeds();
   }, []);
 
+  const handleBookmark = async (feedId) => {
+    if (!token) {
+      console.error('User not logged in. Please log in to bookmark a feed.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/bookmarks/feeds/${feedId}`,
+        {},
+        config
+      );
+
+      if (response.status === 200) {
+        console.log('Feed bookmarked successfully');
+      }
+    } catch (error) {
+      console.error('Error bookmarking feed:', error);
+    }
+  };
+
   const handleInputChange = (event) => {
     setNewFeed({ ...newFeed, [event.target.name]: event.target.value });
   };
@@ -93,6 +114,12 @@ const FeedsPage = () => {
                           className="img-fluid feed-img"
                         />
                       ))}
+                      <button
+                        className="bookmark-btn"
+                        onClick={() => handleBookmark(feed.id)}
+                      >
+                        Bookmark
+                      </button>
                   </div>
                   <p className="text-center">{feed.description}</p>
                   <p className="text-center text-muted">{feed.location}</p>

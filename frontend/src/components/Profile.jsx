@@ -49,12 +49,12 @@ function Profile() {
           );
           setHouses(housesWithImages);
         } else {
-          // Fetch saved houses and tenant's feeds
-        //   const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
-        //   setHouses(savedHousesRes.data);
-        //   setSavedHouses(savedHousesRes.data.map(house => house.id)); // Track saved houses by ID
+          //Fetch saved houses
+          const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
+          setHouses(savedHousesRes.data);
+          setSavedHouses(savedHousesRes.data.map(house => house.id)); // Track saved houses by ID
 
-          // Fetch tenant's feeds
+        // Fetch tenant's feeds
           const tenantFeedsRes = await axios.get(`http://localhost:8000/api/v1/feeds/me`, config);
           console.log(tenantFeedsRes.data);
           setFeeds(tenantFeedsRes.data);
@@ -73,13 +73,26 @@ function Profile() {
     setActiveTab(tab);  // Change active tab
   };
 
-  const handleSaveHouse = (houseId) => {
+  const handleSaveHouse = async (houseId) => {
     const isSaved = savedHouses.includes(houseId);
     if (!isSaved) {
-      setSavedHouses(prevSavedHouses => [...prevSavedHouses, houseId]);
-      axios.post('/api/houses/save', { houseId })
-        .then(res => console.log('House saved successfully'))
-        .catch(err => console.error('Error saving house:', err));
+      try {
+        const token = localStorage.getItem('access_token');
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+  
+        await axios.post(`http://localhost:8000/api/v1/houses/save`, { houseId }, config);
+        setSavedHouses(prevSavedHouses => [...prevSavedHouses, houseId]);
+  
+        // Optionally, refetch the saved houses to update the UI
+        const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
+        setHouses(savedHousesRes.data);
+        console.log('House saved successfully');
+      } catch (err) {
+
+        console.error('Error saving house:', err);
+      }
     }
   };
   const toggleFormVisibility = () => {
@@ -160,6 +173,11 @@ function Profile() {
                             <p className='card-text'>{house.description}</p>
                             <p className='card-text fw-bold'>Price: {house.price}</p>
                             <p className='card-text fw-bold'>Location: {house.location}</p>
+                            {!userType && (
+                              <button onClick={() => handleSaveHouse(house.id)} className="btn btn-primary">
+                                {savedHouses.includes(house.id) ? 'Saved' : 'Save'}
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
