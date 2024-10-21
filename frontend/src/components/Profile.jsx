@@ -49,10 +49,57 @@ function Profile() {
           );
           setHouses(housesWithImages);
         } else {
-          //Fetch saved houses
-          const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
-          setHouses(savedHousesRes.data);
-          setSavedHouses(savedHousesRes.data.map(house => house.id)); // Track saved houses by ID
+          //Fetch Bookmarks
+          const savedHousesRes = await axios.get('http://localhost:8000/api/v1/bookmarks/', config);
+          // console.log(savedHousesRes.data);
+          const savedHousesData = savedHousesRes.data.bookmarks;
+
+        // Separate feeds and properties
+        const savedFeeds = savedHousesData
+          .filter(bookmark => bookmark.feed) // Get only feeds
+          .map(bookmark => bookmark.feed); 
+          // console.log(savedFeeds[0]);  // Extract feed data
+
+        const savedProperties = savedHousesData
+          .filter(bookmark => bookmark.property) // Get only properties
+          .map(bookmark => bookmark.property);   // Extract property data
+
+          const feedsWithImages = await Promise.all(
+            savedFeeds.map(async (feed) => {
+              try {
+                const feedRes = await axios.get(`http://localhost:8000/api/v1/feeds/${feed.id}`);
+                console.log(feedRes.data[0].images[0].image_url);
+                const img = feedRes.data[0].images[0].image_url;
+                return { ...feed, imageUrl: img };
+              } catch (error) {
+                console.warn(`Image not found for feed ${feed.id}`);
+                return { ...feed, imageUrl: null };
+              }
+            })
+          );
+  
+          // Fetch images for properties
+          const propertiesWithImages = await Promise.all(
+            savedProperties.map(async (property) => {
+              try {
+                const imageRes = await axios.get(`http://localhost:8000/api/v1/properties/${property.id}/images`, config);
+                const img = imageRes.data.length > 0 ? imageRes.data[0].image_url : null;
+                return { ...property, imageUrl: img };
+              } catch (error) {
+                console.warn(`Image not found for property ${property.id}`);
+                return { ...property, imageUrl: null };
+              }
+            })
+          );
+  
+          // Combine feeds and properties into the `houses` state
+          const combinedSavedHouses = [...feedsWithImages, ...propertiesWithImages];
+          setHouses(combinedSavedHouses); // Update houses with both feeds and properties
+
+
+        // Track saved house IDs for both feeds and properties
+        const savedHouseIds = combinedSavedHouses.map(house => house.id);
+        setSavedHouses(savedHouseIds); // Track Bookmarks by ID
 
         // Fetch tenant's feeds
           const tenantFeedsRes = await axios.get(`http://localhost:8000/api/v1/feeds/me`, config);
@@ -85,7 +132,7 @@ function Profile() {
         await axios.post(`http://localhost:8000/api/v1/houses/save`, { houseId }, config);
         setSavedHouses(prevSavedHouses => [...prevSavedHouses, houseId]);
   
-        // Optionally, refetch the saved houses to update the UI
+        // Optionally, refetch the Bookmarks to update the UI
         const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
         setHouses(savedHousesRes.data);
         console.log('House saved successfully');
@@ -112,17 +159,21 @@ function Profile() {
   return (
     <>
     <Navbar />
-    <div className="profile-page">
-      <div className='container my-5 profile-container d-flex'>
+    <div className={`profile-page ${!userType ? 'tenant-view' : ''}`}>
+      <div className={`container my-5 profile-container ${userType ? 'landlord-layout' : 'tenant-layout'}`}>
         {/* Left Side Panel (For Landlords) */}
         <div className='left-panel'>
-          <h4 onClick={toggleFormVisibility} className='toggle-button'>
-            {isFormVisible ? 'Hide Form' : 'Post a House'}
-          </h4>
-          {isFormVisible && <PostHouse />}
+          {userType && (
+            <>
+              <h4 onClick={toggleFormVisibility} className='toggle-button'>
+                {isFormVisible ? 'Hide Form' : 'Post a House'}
+              </h4>
+              {isFormVisible && <PostHouse />}
+            </>
+          )}
         </div>
         {/* Right Side Content */}
-        <div className='right-panel'>
+        <div className={`right-panel ${!userType ? 'full-width' : ''}`}>
           <div className="profile-header">
             <div className='profile-picture-placeholder border rounded-circle p-5 bg-light'>
               <p>Profile Picture (Add Later)</p>
@@ -134,7 +185,7 @@ function Profile() {
               className={`tab-button ${activeTab === 'houses' ? 'active' : ''}`}
               onClick={() => handleTabChange('houses')}
             >
-              {userType ? 'Posted Houses' : 'Saved Houses'}
+              {userType ? 'Posted Houses' : 'Bookmarks'}
             </button>
             {!userType && (
               <button
@@ -155,7 +206,7 @@ function Profile() {
           <div className="tab-content">
             {activeTab === 'houses' && (
               <div className="houses-section">
-                <h2>{userType ? 'Posted Houses' : 'Saved Houses'}</h2>
+                <h2>{userType ? 'Posted Houses' : 'Bookmarks'}</h2>
                 <div className="house-list">
                   {houses.length === 0 ? (
                     <p>No houses found</p>
@@ -163,11 +214,10 @@ function Profile() {
                     houses.map(house => (
                       <div key={house.id} className="house-item">
                         <div className='card'>
-                          {renderHouseImage(house.imageUrl, house.title)}
+                          {renderHouseImage(house.imageUrl, house.description)}
                           <div className='card-body'>
-                            <h3 className='card-title'>{house.title}</h3>
+                            <h3 className='card-title'>{house.title || house.description}</h3>
                             <p className='card-text'>{house.description}</p>
-                            <p className='card-text fw-bold'>Price: {house.price}</p>
                             <p className='card-text fw-bold'>Location: {house.location}</p>
                             {!userType && (
                               <button onClick={() => handleSaveHouse(house.id)} className="btn btn-primary">

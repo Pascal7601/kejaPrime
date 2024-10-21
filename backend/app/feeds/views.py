@@ -110,6 +110,32 @@ async def upload_feed(
   return {"message": "Image successfully uploaded", "url": file_location}
 
 
+@feed_route.get('/{feed_id}')
+async def all_feeds(
+   feed_id: str,
+   db: Session = Depends(get_db),
+):
+  """
+  retrieve all user feeds
+  """
+  
+  feed = db.query(Feed).filter_by(id=feed_id).first()
+  if not feed:
+     raise http_msg.not_found("feeds")
+  
+  feed_data = []
+  images = db.query(FeedImage).filter_by(feed_id=feed.id).all()
+  feed_data.append({
+        "id": feed.id,
+        "user_id": feed.user_id,
+        "location": feed.location,
+        "description": feed.description,
+        "images": [{"image_url": image.image_url} for image in images]
+    })
+    
+  return feed_data
+
+
 @feed_route.get('/')
 async def all_feeds(
    db: Session = Depends(get_db),

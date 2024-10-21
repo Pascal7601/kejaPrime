@@ -16,6 +16,14 @@ class Feed(BaseModel):
   user = relationship('User', back_populates='feeds')
   bookmarks = relationship("Bookmarks", back_populates="feed")
 
+  @classmethod
+  def get_feed_by_id(cls, feed_id: str, db):
+    """
+    Check if feed exists in the database
+    """
+    feed = db.query(cls).filter_by(id=feed_id).first()
+    return feed
+
 class FeedImage(BaseModel):
     __tablename__ = 'feed_images'
 
