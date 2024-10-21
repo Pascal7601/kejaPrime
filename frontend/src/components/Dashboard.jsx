@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
 import axios from 'axios';
+import '../styles/Dashboard.css';
 import Navbar from '../components/Navbar';
 
 function Dashboard() {
@@ -62,9 +63,9 @@ function Dashboard() {
   };
 
   return (
-    <div className="renters-dashboard container mt-5">
+    <div className="renters-dashboard container">
       <Navbar />
-      <h2>Renter's Dashboard</h2>
+      <h2 className="title">Available Houses</h2>
       <SearchBar onSearch={handleSearch} />
 
       <div className="listings mt-5">

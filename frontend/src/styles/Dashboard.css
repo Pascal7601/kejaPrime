@@ -1,0 +1,22 @@
+.renters-dashboard {
+	margin-top: 60px;
+	max-width: 100%;
+	border: 1px solid red;
+}
+.title{
+	border-bottom: 3px solid #54D09E;
+	margin-top: 20px;
+	max-width: 300px;
+
+}
+
+@media (max-width: 768px) {
+	.renters-dashboard {
+		margin-top: 98px;
+	}
+}
+@media (max-width: 480px) {
+	.renters-dashboard {
+		margin-top: 98px;
+	}	
+}
