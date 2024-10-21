@@ -37,6 +37,27 @@ const FeedsPage = () => {
     fetchFeeds();
   }, []);
 
+  const handleBookmark = async (feedId) => {
+    if (!token) {
+      console.error('User not logged in. Please log in to bookmark a feed.');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/v1/bookmarks/feeds/${feedId}`,
+        {},
+        config
+      );
+
+      if (response.status === 200) {
+        console.log('Feed bookmarked successfully');
+      }
+    } catch (error) {
+      console.error('Error bookmarking feed:', error);
+    }
+  };
+
   const handleInputChange = (event) => {
     setNewFeed({ ...newFeed, [event.target.name]: event.target.value });
   };
@@ -93,6 +114,12 @@ const FeedsPage = () => {
                           className="img-fluid feed-img"
                         />
                       ))}
+                      <button
+                        className="bookmark-btn"
+                        onClick={() => handleBookmark(feed.id)}
+                      >
+                        Bookmark
+                      </button>
                   </div>
                   <p className="text-center">{feed.description}</p>
                   <p className="text-center text-muted">{feed.location}</p>
@@ -103,10 +130,12 @@ const FeedsPage = () => {
             )}
           </div>
         </div>
-        <div className="col-md-3 col-lg-2 order-1 order-sm-2">
+        <div className="roight col-md-3 col-lg-2 order-1 order-sm-2">
           {isLoggedIn && (
             <div className="create-feed bg-light p-4">
-              <h5>Create a New Feed</h5>
+              <h5>Have you seen a house you like:</h5>
+              <h5>Share It:</h5>
+              <h5 className="creat">Create a New Feed</h5>
               <div className="left-side">
               <input
                 type="file"
@@ -127,7 +156,7 @@ const FeedsPage = () => {
                 className="form-control mb-3"
                 onChange={handleInputChange}
               />
-              <button className="btn btn-primary w-100" onClick={handleSubmit}>
+              <button className="btn1 btn-primary w-100" onClick={handleSubmit}>
                 Submit
               </button>
               </div>
