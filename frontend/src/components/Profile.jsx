@@ -99,17 +99,21 @@ function Profile() {
   return (
     <>
     <Navbar />
-    <div className="profile-page">
-      <div className='container my-5 profile-container d-flex'>
+    <div className={`profile-page ${!userType ? 'tenant-view' : ''}`}>
+      <div className={`container my-5 profile-container ${userType ? 'landlord-layout' : 'tenant-layout'}`}>
         {/* Left Side Panel (For Landlords) */}
         <div className='left-panel'>
-          <h4 onClick={toggleFormVisibility} className='toggle-button'>
-            {isFormVisible ? 'Hide Form' : 'Post a House'}
-          </h4>
-          {isFormVisible && <PostHouse />}
+          {userType && (
+            <>
+              <h4 onClick={toggleFormVisibility} className='toggle-button'>
+                {isFormVisible ? 'Hide Form' : 'Post a House'}
+              </h4>
+              {isFormVisible && <PostHouse />}
+            </>
+          )}
         </div>
         {/* Right Side Content */}
-        <div className='right-panel'>
+        <div className={`right-panel ${!userType ? 'full-width' : ''}`}>
           <div className="profile-header">
             <div className='profile-picture-placeholder border rounded-circle p-5 bg-light'>
               <p>Profile Picture (Add Later)</p>

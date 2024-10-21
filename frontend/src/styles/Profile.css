@@ -8,27 +8,31 @@
   align-items: flex-start;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.5);
-  background-size: cover;
-  background-repeat: no-repeat;
   min-height: 100vh;
 }
 
 .profile-container {
   display: flex;
   gap: 20px;
-  flex-direction: row;
-  align-items: center;
   align-items: flex-start;  /* Align items to the top */
-  background-color:#f0f0f0
 }
+
+/* Landlord-specific layout */
+.landlord-layout {
+  flex-direction: row;
+}
+
+.tenant-layout {
+  flex-direction: column;
+}
+
 /* Left Panel for PostHouse form */
 .left-panel {
   flex: 1;  /* Adjusts based on screen size */
   max-width: 300px;
   padding: 15px;
-  background-color: #e6d1d1;
+  background-color: #ebc1c1;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-right: 20px;
 }
 .left-panel h4 {
@@ -43,7 +47,11 @@
   padding: 20px;
   background-color: #e2dada;
   border-radius: 8px;
-  background-image: url('../assets/white.png');
+}
+/* Full-width for tenant */
+.full-width {
+  flex: 1;
+  width: 100%;
 }
 .profile-header {
     margin-bottom: 20px;
@@ -85,6 +93,11 @@
 .tab-button.active {
     background-color: #007bff;
     color: white;
+}
+
+/* Tenant View - No Left or Right Panels */
+.tenant-view .left-panel {
+  display: none;
 }
 
 /* House list styling */
