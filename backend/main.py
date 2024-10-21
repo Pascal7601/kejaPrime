@@ -20,7 +20,7 @@ app.include_router(property_route)
 app.include_router(feed_route)
 app.include_router(bookmark_route)
 
-Base.metadata.drop_all(engine)
+#Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
