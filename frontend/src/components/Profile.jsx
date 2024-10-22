@@ -216,7 +216,7 @@ function Profile() {
               <label htmlFor="file-upload" className="plus-sign-label">+</label>
               <input id="file-upload" type="file" onChange={handleFileChange} accept="image/*" style={{ display: 'none' }} />
               {profilePic && (
-                <button onClick={handleFileUpload} className="btn btn-secondary w-25 mt-2">Upload</button>
+                <button onClick={handleFileUpload} className="btn btn-secondary w-50 mt-2">Upload</button>
               )}
             </div>
           </div>
