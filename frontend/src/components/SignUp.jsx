@@ -11,6 +11,7 @@ const SignUp = () => {
 		email: '',
 		password: '',
 		location: '',
+		contact: '',
 		role:''   // new field for user type (property owner or renter)
 	});
 	const [errors, setErrors] = useState({});
@@ -78,6 +79,18 @@ const SignUp = () => {
 					onChange={handleInput}
 				/>
 				{errors.location && <span className='text-danger'> {errors.location} </span>}
+			</div>
+			<div className='form-group mb-3'>
+				<label htmlFor="contact"> Contact:</label>
+				<input
+					type="text"
+					name='contact'
+					className='form-control'
+					autoComplete='off'
+					placeholder='Enter your contact'
+					onChange={handleInput}
+				/>
+				{errors.contact && <span className='text-danger'> {errors.contact} </span>}
 			</div>
 			{/* role: landlord of renter */}
 			<div className='form-group mb-3'>
