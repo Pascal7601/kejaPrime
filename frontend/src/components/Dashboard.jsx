@@ -45,42 +45,6 @@ function Dashboard() {
 
     fetchListings();
   }, []);
-  const fetchProfile = async () => {
-    try {
-      const token = localStorage.getItem('access_token');
-      const config = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
-      const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
-      setSavedHouses(savedHousesRes.data);
-    } catch (error) {
-      console.error('Error fetching saved houses:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProfile(); // Fetch saved houses when the component mounts
-  }, []);
-  const handleBookmark = async (houseId) => {
-    const isSaved = savedHouses.includes(houseId);
-    if (!isSaved) {
-      try {
-        const token = localStorage.getItem('access_token'); // Retrieve the token from local storage
-        const config = {
-          headers: { Authorization: `Bearer ${token}` },
-        };
-  
-        await axios.post(`http://localhost:8000/api/v1/houses/save`, { houseId }, config);
-        setSavedHouses(prevSavedHouses => [...prevSavedHouses, houseId]);
-
-        const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
-        setSavedHouses(savedHousesRes.data);
-        console.log('House saved successfully');
-      } catch (err) {
-        console.error('Error saving house:', err);
-      }
-    }
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -130,12 +94,6 @@ function Dashboard() {
                   className="card-image"
                 />
               )}
-              <button
-                  className="bookmark-btn"
-                  onClick={() => handleBookmark(listing.id)}
-                >
-                  Bookmark
-              </button>
               <div className="card-content">
                 <p>{listing.description}</p>
                 <strong className="dash">{listing.location}</strong> - {listing.bedrooms} Bedrooms

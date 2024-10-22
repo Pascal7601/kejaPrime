@@ -295,6 +295,7 @@ function Profile() {
                     <p>Email: {profile.email}</p>
                     <p>Status: {profile.is_landlord ? "Landlord" : "Tenant"}</p>
                     <p>Location: {profile.location}</p>
+                    <p>Contact: {profile.contact}</p>
                   </div>
                 )}
               </div>
