@@ -216,14 +216,9 @@ function Profile() {
                         <div className='card'>
                           {renderHouseImage(house.imageUrl, house.description)}
                           <div className='card-body'>
-                            <h3 className='card-title'>{house.title || house.description}</h3>
                             <p className='card-text'>{house.description}</p>
                             <p className='card-text fw-bold'>Location: {house.location}</p>
-                            {!userType && (
-                              <button onClick={() => handleSaveHouse(house.id)} className="btn btn-primary">
-                                {savedHouses.includes(house.id) ? 'Saved' : 'Save'}
-                              </button>
-                            )}
+                            
                           </div>
                         </div>
                       </div>

@@ -52,7 +52,7 @@ function Navbar() {
                   <>
                     <li className="nav-item">
                       <Link className="nav-link" to="/dashboard">
-                        Dashboard
+                        Apartments
                       </Link>
                     </li>
                     {/* <li className="nav-item">
@@ -77,8 +77,8 @@ function Navbar() {
                 {userType === 'landlord' && (
                   <>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/post-house">
-                        Post a House
+                      <Link className="nav-link" to="/dashboard">
+                        Apartments
                       </Link>
                     </li>
                     <li className="nav-item">

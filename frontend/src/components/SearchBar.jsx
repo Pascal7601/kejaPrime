@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import houseSearch from "../assets/house_searching.svg";
 import '../styles/SearchBar.css';
 
 function SearchBar({onSearch}) { //accept the onSearch prop
@@ -49,11 +48,10 @@ function SearchBar({onSearch}) { //accept the onSearch prop
 								placeholder='Enter number of bedrooms'
 							/>
 						</div>
-						<button type='submit' className='btn btn-primary w-25'>Search</button>
+						<button type='submit' className='butt btn-primary w-25'>Search</button>
 					</div>	
 				</form>
 			</div>
-			<img  className='img-fluid' src={houseSearch} alt="houseSearch" />
 		</div>
 	);
 };
