@@ -8,6 +8,8 @@ import '../styles/Profile.css';
 
 function Profile() {
   const [profile, setProfile] = useState(null);
+  const [profilePic, setProfilePic] = useState(null);
+  const [preview, setPreview] = useState(null);
   const [userType, setUserType] = useState(false);
   const [houses, setHouses] = useState([]);
   const [feeds, setFeeds] = useState([]); // State for tenant's feeds
@@ -57,7 +59,7 @@ function Profile() {
         // Separate feeds and properties
         const savedFeeds = savedHousesData
           .filter(bookmark => bookmark.feed) // Get only feeds
-          .map(bookmark => bookmark.feed); 
+          .map(bookmark => bookmark.feed);
           // console.log(savedFeeds[0]);  // Extract feed data
 
         const savedProperties = savedHousesData
@@ -77,7 +79,7 @@ function Profile() {
               }
             })
           );
-  
+
           // Fetch images for properties
           const propertiesWithImages = await Promise.all(
             savedProperties.map(async (property) => {
@@ -91,7 +93,7 @@ function Profile() {
               }
             })
           );
-  
+
           // Combine feeds and properties into the `houses` state
           const combinedSavedHouses = [...feedsWithImages, ...propertiesWithImages];
           setHouses(combinedSavedHouses); // Update houses with both feeds and properties
@@ -128,10 +130,10 @@ function Profile() {
         const config = {
           headers: { Authorization: `Bearer ${token}` },
         };
-  
+
         await axios.post(`http://localhost:8000/api/v1/houses/save`, { houseId }, config);
         setSavedHouses(prevSavedHouses => [...prevSavedHouses, houseId]);
-  
+
         // Optionally, refetch the Bookmarks to update the UI
         const savedHousesRes = await axios.get('http://localhost:8000/api/v1/houses/saved', config);
         setHouses(savedHousesRes.data);
@@ -144,6 +146,34 @@ function Profile() {
   };
   const toggleFormVisibility = () => {
     setIsFormVisible(!isFormVisible);
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePic(file);
+      const fileURL = URL.createObjectURL(file);
+      setPreview(fileURL);
+    }
+  };
+
+  const handleFileUpload = async () => {
+    if (profilePic) {
+      const formData = new FormData();
+      formData.append('profile_pic', profilePic);
+      try {
+        const token = localStorage.getItem('access_token');
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        };
+        await axios.post('http://localhost:8000/api/v1/users/profile-pic', formData, config);
+        alert('Profile picture updated successfully');
+      } catch (err) {
+        console.error('Error uploading profile picture:', err);
+      }
+    }
   };
 
   const renderHouseImage = (imageUrl, title) => {
@@ -175,8 +205,19 @@ function Profile() {
         {/* Right Side Content */}
         <div className={`right-panel ${!userType ? 'full-width' : ''}`}>
           <div className="profile-header">
-            <div className='profile-picture-placeholder border rounded-circle p-5 bg-light'>
-              <p>Profile Picture (Add Later)</p>
+            <div className='profile-picture-container'>
+              {preview ? (
+                <img src={preview} alt="Profile Preview" className="img-fluid rounded-circle profile-picture" />
+              ) : (
+                <div className='placeholder-circle p-5'>
+                  <p>Profile Picture</p>
+                </div>
+              )}
+              <label htmlFor="file-upload" className="plus-sign-label">+</label>
+              <input id="file-upload" type="file" onChange={handleFileChange} accept="image/*" style={{ display: 'none' }} />
+              {profilePic && (
+                <button onClick={handleFileUpload} className="btn btn-secondary w-25 mt-2">Upload</button>
+              )}
             </div>
           </div>
           {/* Navigation Tabs */}
