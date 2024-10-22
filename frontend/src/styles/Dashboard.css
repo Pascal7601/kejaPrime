@@ -1,0 +1,76 @@
+.renters-dashboard {
+	margin-top: 60px;
+	max-width: 100%;
+}
+.renters-dashboard h2{
+	text-align: center;
+}
+.title{
+	display: inline-block;
+	border-bottom: 3px solid #54D09E;
+	color:#333;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	max-width: 100%;
+}
+.listings {
+	margin-top: 40px;
+}
+.listings h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.unordered {
+	display: flex;
+  	gap: 20px;
+  	list-style: none;
+  	padding: 0;
+	  justify-content: center;
+}
+.cont {
+	background: #f8f8f8;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	width: 400px;
+	text-align: left;
+	overflow: hidden;
+	transition: transform 0.3s ease;
+}
+.cont:hover {
+	transform: translateY(-5px);
+}
+.card-image {
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+	border-bottom: 1px solid #ddd;
+}
+.card-content {
+	padding: 15px;
+}
+.card-content .dash{
+	font-size: 1.2rem;
+	color: #54D09E;
+}
+
+..card-content p {
+	color: #777;
+}
+
+
+@media (max-width: 768px) {
+	.renters-dashboard {
+		margin-top: 98px;
+	}
+	.unordered {
+		flex-direction: column;
+	}
+	.cont {
+		width: 100%;
+	}
+}
+@media (max-width: 480px) {
+	.renters-dashboard {
+		margin-top: 98px;
+	}	
+}

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/SearchBar';
 import axios from 'axios';
+import '../styles/Dashboard.css';
 import Navbar from '../components/Navbar';
 
 function Dashboard() {
   const [listings, setListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [savedHouses, setSavedHouses] = useState([]);
   const placeholderImage = 'http://localhost:8000/uploads/placeholder-image.jpg'; // URL of your placeholder image
 
   useEffect(() => {
@@ -22,8 +24,8 @@ function Dashboard() {
               const imageResponse = await axios.get(
                 `http://localhost:8000/api/v1/properties/${property.id}/images`
               );
-              console.log(imageResponse.data);
-              console.log(imageResponse.data[0].image_url);
+              // console.log(imageResponse.data);
+              // console.log(imageResponse.data[0].image_url);
               return { ...property, imageUrl: imageResponse.data[0].image_url };
             } catch (imageError) {
               console.error(`Error fetching image for property ${property.id}:`, imageError);
@@ -62,45 +64,47 @@ function Dashboard() {
   };
 
   return (
-    <div className="renters-dashboard container mt-5">
+    <div className="renters-dashboard container">
       <Navbar />
-      <h2>Renter's Dashboard</h2>
+      <h2 className="title">Available Rental Apartments</h2>
       <SearchBar onSearch={handleSearch} />
 
       <div className="listings mt-5">
         <h3>Results:</h3>
-        {filteredListings.length === 0 ? (
-          <p>Loading listings...</p>
-        ) : filteredListings.length > 0 ? (
-          <ul>
-            {filteredListings.map((listing) => (
-              <li key={listing.id}>
-                <div>
-                  <strong>{listing.location}</strong> - {listing.bedrooms} Bedrooms
-									<p>{listing.description}</p>
-                </div>
-                {listing.imageUrl ? (
-                  <img
-                    src={`http://localhost:8000/${listing.imageUrl}`}
-                    alt={`${listing.location} property`}
-                    style={{ width: '200px', height: '150px' }}
-                    onError={(e) => {
-                      e.target.src = placeholderImage; // Set placeholder if image is not found
-                    }}
-                  />
-                ) : (
-                  <img
-                    src={placeholderImage} 
-                    alt="Placeholder" 
-                    style={{ width: '200px', height: '150px' }}
-                  />
-                )}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No results found</p>
-        )}
+      {filteredListings.length === 0 ? (
+        <p>Loading listings...</p>
+      ) : filteredListings.length > 0 ? (
+        <ul className="unordered">
+          {filteredListings.map((listing) => (
+            <li className="cont" key={listing.id}>
+              {/* Image appears before the content */}
+              {listing.imageUrl ? (
+                <img
+                  src={`http://localhost:8000/${listing.imageUrl}`}
+                  alt={`${listing.location} property`}
+                  className="card-image"
+                  onError={(e) => {
+                    e.target.src = placeholderImage; // Set placeholder if image is not found
+                  }}
+                />
+              ) : (
+                <img
+                  src={placeholderImage}
+                  alt="Placeholder"
+                  className="card-image"
+                />
+              )}
+              <div className="card-content">
+                <p>{listing.description}</p>
+                <strong className="dash">{listing.location}</strong> - {listing.bedrooms} Bedrooms
+
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No results found</p>
+      )}
       </div>
     </div>
   );
