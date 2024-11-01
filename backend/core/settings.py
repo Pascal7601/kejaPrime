@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 from fastapi import HTTPException
-import requests
 from typing import List
 from pydantic import EmailStr, BaseModel
 from pathlib import Path
